@@ -2,48 +2,61 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { API_KEY } from "../../utils/WeatherAPIKey";
 import Weather from "../components/Weather";
+import { currentWeather, forecastWeather } from "../../utils/SampleData"
 
 import { YellowBox } from "react-native";
+
+//This line igrone warning in debugger mode
 YellowBox.ignoreWarnings(["Remote debugger"]);
 
 export default class WeatherScreen extends React.Component {
   state = {
     isLoading: true,
-    weatherInfo: null,
+    currentWeather: null,
+    forecastWeather: null,
     error: null
   };
 
+  //Use fixed data, will be replaced later
   componentDidMount() {
-    navigator.geolocation.getCurrentPosition(
-      position => {
-        this.fetchWeather(position.coords.latitude, position.coords.longitude);
-      },
-      error => {
-        this.setState({
-          error: "Error Getting Weather Condtions"
-        });
-      }
-    );
+    this.setState({
+      isLoading: false,
+      currentWeather: currentWeather,
+      forecastWeather: forecastWeather
+    })
   }
 
-  fetchWeather(lat, lon) {
-    fetch(
-      `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&APPID=${API_KEY}&units=metric`
-    )
-      .then(res => res.json())
-      .then(json => {
-        this.setState({
-          weatherInfo: json,
-          isLoading: false
-        });
-      })
-      .catch(err => {
-        console.log(err, "error");
-      });
-  }
+  // componentDidMount() {
+  //   navigator.geolocation.getCurrentPosition(
+  //     position => {
+  //       this.fetchWeather(position.coords.latitude, position.coords.longitude);
+  //     },
+  //     error => {
+  //       this.setState({
+  //         error: "Error Getting Weather Condtions"
+  //       });
+  //     }
+  //   );
+  // }
+
+  // fetchWeather(lat, lon) {
+  //   fetch(
+  //     `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&APPID=${API_KEY}&units=metric`
+  //   )
+  //     .then(res => res.json())
+  //     .then(json => {
+  //       this.setState({
+  //         currentWeather: json,
+  //         isLoading: false
+  //       });
+  //     })
+  //     .catch(err => {
+  //       console.log(err, "error");
+  //     });
+  // }
 
   render() {
-    const { isLoading, weatherInfo } = this.state;
+    const { isLoading, currentWeather } = this.state;
     return (
       <View style={styles.container}>
         {isLoading ? (
@@ -51,8 +64,8 @@ export default class WeatherScreen extends React.Component {
             <Text style={styles.loadingText}>Fetching The Weather</Text>
           </View>
         ) : (
-          <Weather weatherInfo={weatherInfo} />
-        )}
+            <Weather forecastWeather={forecastWeather.list} />
+          )}
       </View>
     );
   }

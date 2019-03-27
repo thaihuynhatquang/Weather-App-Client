@@ -2,32 +2,21 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import PropTypes from "prop-types";
-import { weatherConditions } from "../../utils/WeatherConditions";
+import WeatherHeader from './WeatherHeader'
+import WeatherBody from './WeatherBody';
 
-const Weather = ({ weatherInfo }) => {
-  console.log(weatherInfo);
+const Weather = ({ forecastWeather }) => {
+  console.log(forecastWeather, "weather forecast");
+  const currentWeather = forecastWeather[0];
+  console.log(currentWeather)
   return (
     <View style={styles.weatherContainer}>
-      <View style={styles.headerContainer}>
-        <Text style={styles.textTitle}>Weather</Text>
-        <View style={styles.iconTitle}>
-          <View style={{ flexDirection: "row" }}>
-            <Text style={styles.textTitle}>{weatherInfo.main.temp}˚</Text>
-            <MaterialCommunityIcons
-              size={20}
-              name={"weather-sunny"}
-              color="#344046"
-            />
-          </View>
-          <Text style={[styles.textTitle, { fontSize: 20 }]}>
-            {weatherInfo.weather[0].description}
-          </Text>
-        </View>
-      </View>
+      <WeatherHeader temperature={currentWeather.main.temp} mainWeather={currentWeather.weather[0].main} />
+      <WeatherBody />
       {/* <View style={styles.bodyContainer}>
-        <Text style={styles.title}>{weatherConditions[weatherInfo].title}</Text>
+        <Text style={styles.title}>{currentWeather.name}</Text>
         <Text style={styles.subtitle}>
-          {weatherConditions[weatherInfo].subtitle}
+          {currentWeather.name}
         </Text>
       </View> */}
     </View>
@@ -35,7 +24,7 @@ const Weather = ({ weatherInfo }) => {
 };
 
 Weather.propTypes = {
-  weatherInfo: PropTypes.object.isRequired
+  forecastWeather: PropTypes.array.isRequired
 };
 
 const styles = StyleSheet.create({
@@ -45,25 +34,6 @@ const styles = StyleSheet.create({
     paddingRight: 30,
     paddingTop: 30,
     backgroundColor: "#c4ced1"
-  },
-  headerContainer: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "flex-start",
-    justifyContent: "space-between"
-  },
-  textTitle: {
-    fontSize: 25,
-    color: "#344046",
-    justifyContent: "center",
-    alignContent: "center"
-  },
-  iconTitle: {
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "flex-end",
-    alignContent: "center",
-    justifyContent: "center"
   },
   tempText: {
     fontSize: 20,
