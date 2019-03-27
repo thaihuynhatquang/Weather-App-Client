@@ -9,8 +9,7 @@ YellowBox.ignoreWarnings(["Remote debugger"]);
 export default class WeatherScreen extends React.Component {
   state = {
     isLoading: true,
-    temperature: 0,
-    weatherCondition: null,
+    weatherInfo: null,
     error: null
   };
 
@@ -33,10 +32,8 @@ export default class WeatherScreen extends React.Component {
     )
       .then(res => res.json())
       .then(json => {
-        console.log(json);
         this.setState({
-          temperature: json.main.temp,
-          weatherCondition: json.weather[0].main,
+          weatherInfo: json,
           isLoading: false
         });
       })
@@ -46,7 +43,7 @@ export default class WeatherScreen extends React.Component {
   }
 
   render() {
-    const { isLoading, weatherCondition, temperature } = this.state;
+    const { isLoading, weatherInfo } = this.state;
     return (
       <View style={styles.container}>
         {isLoading ? (
@@ -54,7 +51,7 @@ export default class WeatherScreen extends React.Component {
             <Text style={styles.loadingText}>Fetching The Weather</Text>
           </View>
         ) : (
-          <Weather weather={weatherCondition} temperature={temperature} />
+          <Weather weatherInfo={weatherInfo} />
         )}
       </View>
     );
@@ -64,13 +61,13 @@ export default class WeatherScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff"
+    backgroundColor: "#344046"
   },
   loadingContainer: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#FFFDE4"
+    backgroundColor: "#c4ced1"
   },
   loadingText: {
     fontSize: 30

@@ -7,6 +7,8 @@ import WeatherScreen from "../src/screens/WeatherScreen";
 import LocationScreen from "../src/screens/LocationScreen";
 import SetupScreen from "../src/screens/SetupScreen";
 
+import IconWithBadge from "./IconWithBadge";
+
 export default createAppContainer(
   createBottomTabNavigator(
     {
@@ -33,7 +35,15 @@ export default createAppContainer(
           let IconComponent = Ionicons;
           let iconName;
           if (routeName === "Notification") {
-            iconName = `ios-notifications`;
+            return (
+              <IconWithBadge
+                badgeCount={3}
+                name={"ios-notifications"}
+                size={26}
+                color={tintColor}
+              />
+            );
+            // iconName = `ios-notifications`;
             // iconName = `notifications${focused ? "" : "-outline"}`;
             // Sometimes we want to add badges to some icons.
             // You can check the implementation below.
@@ -52,13 +62,10 @@ export default createAppContainer(
           return <IconComponent name={iconName} size={25} color={tintColor} />;
         }
       }),
+      initialRouteName: "Weather",
       tabBarOptions: {
-        activeTintColor: "white",
-        inactiveTintColor: "gray",
-        style: {
-          backgroundColor: "black",
-          opacity: 0.5
-        }
+        activeTintColor: "#344046",
+        inactiveTintColor: "#c4ced1"
       }
     }
   )
