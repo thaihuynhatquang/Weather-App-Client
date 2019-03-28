@@ -1,20 +1,21 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+var _ = require('lodash');
 
 export default WeatherHeader = ({ temperature, mainWeather }) => (
   <View style={styles.headerContainer}>
     <Text style={styles.textTitle}>Weather</Text>
     <View style={styles.iconTitle}>
       <View style={{ flexDirection: "row" }}>
-        <Text style={styles.textTitle}>{temperature}˚</Text>
+        <Text style={styles.textTitle}>{_.round(temperature)}˚</Text>
         <MaterialCommunityIcons
           size={25}
           name={"weather-sunny"}
           color="#344046"
         />
       </View>
-      <Text style={[styles.textTitle, { fontSize: 20 }]}>
+      <Text style={[styles.textTitle, { fontSize: 15 }]}>
         {mainWeather}
       </Text>
     </View>

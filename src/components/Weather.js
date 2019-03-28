@@ -1,27 +1,24 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import PropTypes from "prop-types";
-import WeatherHeader from './WeatherHeader'
-import WeatherBody from './WeatherBody';
+import WeatherHeader from "./WeatherHeader";
+import WeatherBody from "./WeatherBody";
+import * as middlewares from '../../utils/middlewares';
 
-const Weather = ({ forecastWeather }) => {
+export default (Weather = ({ forecastWeather }) => {
   console.log(forecastWeather, "weather forecast");
-  const currentWeather = forecastWeather[0];
-  console.log(currentWeather)
+  const weatherInformation = middlewares.analysisData(forecastWeather)
+  console.log(weatherInformation, "weather information")
   return (
     <View style={styles.weatherContainer}>
-      <WeatherHeader temperature={currentWeather.main.temp} mainWeather={currentWeather.weather[0].main} />
-      <WeatherBody />
-      {/* <View style={styles.bodyContainer}>
-        <Text style={styles.title}>{currentWeather.name}</Text>
-        <Text style={styles.subtitle}>
-          {currentWeather.name}
-        </Text>
-      </View> */}
+      <WeatherHeader
+        temperature={weatherInformation[0][0].main.temp}
+        mainWeather={weatherInformation[0][0].weather[0].description}
+      />
+      <WeatherBody weatherInformation={weatherInformation} />
     </View>
   );
-};
+});
 
 Weather.propTypes = {
   forecastWeather: PropTypes.array.isRequired
@@ -51,5 +48,3 @@ const styles = StyleSheet.create({
     color: "#fff"
   }
 });
-
-export default Weather;
