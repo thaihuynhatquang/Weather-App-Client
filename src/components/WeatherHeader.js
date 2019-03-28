@@ -1,9 +1,10 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-var _ = require('lodash');
+var _ = require("lodash");
+import { TEXT_COLOR, TEXT_TITLE, TEXT_MEDIUM_SIZE } from "../../utils/constant";
 
-export default WeatherHeader = ({ temperature, mainWeather }) => (
+export default (WeatherHeader = ({ temperature, mainWeather }) => (
   <View style={styles.headerContainer}>
     <Text style={styles.textTitle}>Weather</Text>
     <View style={styles.iconTitle}>
@@ -12,26 +13,24 @@ export default WeatherHeader = ({ temperature, mainWeather }) => (
         <MaterialCommunityIcons
           size={25}
           name={"weather-sunny"}
-          color="#344046"
+          color={TEXT_COLOR}
         />
       </View>
-      <Text style={[styles.textTitle, { fontSize: 15 }]}>
-        {mainWeather}
-      </Text>
+      <Text style={[styles.textTitle, { fontSize: 15 }]}>{mainWeather}</Text>
     </View>
   </View>
-)
+));
 
 const styles = StyleSheet.create({
   headerContainer: {
     flex: 0,
     flexDirection: "row",
     alignItems: "flex-start",
-    justifyContent: "space-between",
+    justifyContent: "space-between"
   },
   textTitle: {
-    fontSize: 25,
-    color: "#344046",
+    fontSize: TEXT_TITLE,
+    color: TEXT_COLOR,
     justifyContent: "center",
     alignContent: "center"
   },
@@ -42,5 +41,4 @@ const styles = StyleSheet.create({
     alignContent: "center",
     justifyContent: "center"
   }
-})
-
+});

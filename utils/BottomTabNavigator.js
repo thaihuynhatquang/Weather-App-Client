@@ -7,6 +7,7 @@ import WeatherScreen from "../src/screens/WeatherScreen";
 import LocationScreen from "../src/screens/LocationScreen";
 import SetupScreen from "../src/screens/SetupScreen";
 
+import { TEXT_COLOR, INACTIVE_TEXT_COLOR } from "./constant";
 import IconWithBadge from "./IconWithBadge";
 
 export default createAppContainer(
@@ -64,8 +65,8 @@ export default createAppContainer(
       }),
       initialRouteName: "Weather",
       tabBarOptions: {
-        activeTintColor: "#344046",
-        inactiveTintColor: "#c4ced1"
+        activeTintColor: TEXT_COLOR,
+        inactiveTintColor: INACTIVE_TEXT_COLOR
       }
     }
   )

@@ -3,12 +3,11 @@ import { View, Text, StyleSheet } from "react-native";
 import PropTypes from "prop-types";
 import WeatherHeader from "./WeatherHeader";
 import WeatherBody from "./WeatherBody";
-import * as middlewares from '../../utils/middlewares';
+import * as middlewares from "../../utils/middlewares";
+import { BACKGROUND_COLOR, TEXT_COLOR } from "../../utils/constant";
 
 export default (Weather = ({ forecastWeather }) => {
-  console.log(forecastWeather, "weather forecast");
-  const weatherInformation = middlewares.analysisData(forecastWeather)
-  console.log(weatherInformation, "weather information")
+  const weatherInformation = middlewares.analysisData(forecastWeather);
   return (
     <View style={styles.weatherContainer}>
       <WeatherHeader
@@ -19,7 +18,6 @@ export default (Weather = ({ forecastWeather }) => {
     </View>
   );
 });
-
 Weather.propTypes = {
   forecastWeather: PropTypes.array.isRequired
 };
@@ -30,11 +28,11 @@ const styles = StyleSheet.create({
     paddingLeft: 30,
     paddingRight: 30,
     paddingTop: 30,
-    backgroundColor: "#c4ced1"
+    backgroundColor: BACKGROUND_COLOR
   },
   tempText: {
     fontSize: 20,
-    color: "#344046"
+    color: TEXT_COLOR
   },
   bodyContainer: {
     flex: 2,
