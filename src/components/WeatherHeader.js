@@ -12,7 +12,7 @@ export default (WeatherHeader = ({ temperature, mainWeather }) => (
         <Text style={styles.textTitle}>{_.round(temperature)}˚</Text>
         <MaterialCommunityIcons
           size={25}
-          name={"weather-sunny"}
+          name={"weather-lightning-rainy"}
           color={TEXT_COLOR}
         />
       </View>
@@ -26,7 +26,10 @@ const styles = StyleSheet.create({
     flex: 0,
     flexDirection: "row",
     alignItems: "flex-start",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    paddingLeft: 30,
+    paddingRight: 30,
+    paddingTop: 30
   },
   textTitle: {
     fontSize: TEXT_TITLE,

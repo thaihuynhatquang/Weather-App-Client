@@ -31,7 +31,9 @@ export default (WeatherBody = ({ weatherInformation }) => {
 const styles = StyleSheet.create({
   bodyContainer: {
     flex: 2,
-    marginTop: 20
+    paddingLeft: 30,
+    paddingRight: 30,
+    paddingTop: 40
   },
 
   lineBreak: {

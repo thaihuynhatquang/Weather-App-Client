@@ -1,5 +1,6 @@
-import React from "react";
+import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import {
   TEXT_COLOR,
   INACTIVE_TEXT_COLOR,
@@ -7,33 +8,39 @@ import {
   TEXT_MEDIUM_SIZE,
   TEXT_SMALL_SIZE
 } from "../../utils/constant";
+import { WeatherBodyCurrentDetails } from "./WeatherBodyCurrentDetails";
+
 var _ = require("lodash");
-export default (WeatherBodyCurrent = props => {
-  const { information } = props;
-  return (
-    <View style={styles.cardCurrentInformation}>
-      <View style={styles.currentInformation}>
-        <View style={styles.currentDay}>
-          <Text style={{ color: "white", fontSize: TEXT_SMALL_SIZE }}>
-            Today
-          </Text>
+export default class WeatherBodyCurrent extends Component {
+  render() {
+    const { information } = this.props;
+    return (
+      <View style={styles.cardCurrentInformation}>
+        <View style={styles.currentInformation}>
+          <View style={styles.currentDay}>
+            <Text style={{ color: "white", fontSize: TEXT_SMALL_SIZE }}>
+              Today
+            </Text>
+          </View>
+          <View>
+            <Text style={styles.temperature}>
+              {_.round(information.item[0].main.temp)}˚
+            </Text>
+            <Text style={styles.description}>
+              {information.item[0].weather[0].description}
+            </Text>
+          </View>
+          <MaterialCommunityIcons
+            size={35}
+            name={"weather-rainy"}
+            color="#344046"
+          />
         </View>
-        <View>
-          <Text style={styles.temperature}>
-            {_.round(information.item[0].main.temp)}˚
-          </Text>
-          <Text style={styles.description}>
-            {information.item[0].weather[0].description}
-          </Text>
-        </View>
-        <View>
-          <Text>Day la icon</Text>
-        </View>
+        <WeatherBodyCurrentDetails />
       </View>
-      <Text style={styles.expandText}>View Hourly Forecast</Text>
-    </View>
-  );
-});
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   cardCurrentInformation: {
@@ -47,8 +54,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingLeft: 20,
     paddingRight: 20,
-    borderRadius: 2,
-    zIndex: 10
+    borderRadius: 2
   },
   currentInformation: {
     flex: 0,

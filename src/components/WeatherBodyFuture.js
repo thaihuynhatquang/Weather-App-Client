@@ -1,5 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import {
   TEXT_COLOR,
   TEXT_MEDIUM_SIZE,
@@ -8,6 +9,7 @@ import {
 
 export default (WeatherBodyFuture = props => {
   const { information } = props;
+  console.log(information, "information weather");
   return (
     <View style={styles.cardFutureInformation}>
       <View>
@@ -18,9 +20,11 @@ export default (WeatherBodyFuture = props => {
           {information.item[0].weather[0].description}
         </Text>
       </View>
-      <View>
-        <Text>Day la icon</Text>
-      </View>
+      <MaterialCommunityIcons
+        size={35}
+        name={"weather-lightning"}
+        color="#344046"
+      />
     </View>
   );
 });

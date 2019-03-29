@@ -12,7 +12,7 @@ export default (Weather = ({ forecastWeather }) => {
     <View style={styles.weatherContainer}>
       <WeatherHeader
         temperature={weatherInformation[0][0].main.temp}
-        mainWeather={weatherInformation[0][0].weather[0].description}
+        mainWeather={weatherInformation[0][0].weather[0].main}
       />
       <WeatherBody weatherInformation={weatherInformation} />
     </View>
@@ -25,9 +25,6 @@ Weather.propTypes = {
 const styles = StyleSheet.create({
   weatherContainer: {
     flex: 1,
-    paddingLeft: 30,
-    paddingRight: 30,
-    paddingTop: 30,
     backgroundColor: BACKGROUND_COLOR
   },
   tempText: {
