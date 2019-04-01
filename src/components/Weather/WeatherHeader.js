@@ -13,7 +13,10 @@ export default class WeatherHeader extends Component {
     const { temperature, mainWeather, city, country } = this.props;
     return (
       <View style={styles.headerContainer}>
-        <Text style={styles.textTitle}>{city}, {country}</Text>
+        <View style={{flex:1, alignItems: "flex-start"}}>
+          <Text style={styles.textTitle}>Weather</Text>
+          <Text style={styles.textSubTitle}>{city}, {country}</Text>
+        </View>
         <View style={styles.iconTitle}>
           <View style={{ flexDirection: "row" }}>
             <Text style={styles.textTitle}>{_.round(temperature)}˚</Text>
@@ -45,14 +48,14 @@ const styles = StyleSheet.create({
   textTitle: {
     fontSize: TEXT_TITLE,
     color: TEXT_COLOR,
-    justifyContent: "center",
-    alignContent: "center"
+  },
+  textSubTitle:{
+    fontSize: TEXT_MEDIUM_SIZE,
+    color: TEXT_COLOR,
   },
   iconTitle: {
     flex: 1,
     flexDirection: "column",
     alignItems: "flex-end",
-    alignContent: "center",
-    justifyContent: "center"
   }
 });

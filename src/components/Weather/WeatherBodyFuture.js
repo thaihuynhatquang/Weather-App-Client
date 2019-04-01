@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     padding: 20,
-    borderRadius: 2
+    borderRadius: 2,
   },
   datetime: {
     fontSize: TEXT_SMALL_SIZE,

@@ -36,7 +36,8 @@ const styles = StyleSheet.create({
     flex: 2,
     paddingLeft: 30,
     paddingRight: 30,
-    paddingTop: 40
+    paddingTop: 40,
+    paddingBottom: 30
   },
 
   lineBreak: {
