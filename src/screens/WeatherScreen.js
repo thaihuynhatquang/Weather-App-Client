@@ -1,29 +1,13 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { API_KEY } from "../../utils/WeatherAPIKey";
-import Weather from "../components/Weather";
-import { currentWeather, forecastWeather } from "../../utils/SampleData"
-
-import { YellowBox } from "react-native";
-
-//This line igrone warning in debugger mode
-YellowBox.ignoreWarnings(["Remote debugger"]);
-
-export default class WeatherScreen extends React.Component {
-  state = {
-    isLoading: true,
-    currentWeather: null,
-    forecastWeather: null,
-    error: null
-  };
-
-  //Use fixed data, will be replaced later
+import Weather from "../components/Weather/Weather";
+// import { currentWeather, forecastWeather } from "../../utils/SampleData";
+import { connect } from "react-redux";
+import { loadWeatherInformation } from "../store/actions/index";
+class WeatherScreen extends React.Component {
   componentDidMount() {
-    this.setState({
-      isLoading: false,
-      currentWeather: currentWeather,
-      forecastWeather: forecastWeather
-    })
+    this.props.fetchWeatherInformation();
   }
 
   // componentDidMount() {
@@ -56,20 +40,38 @@ export default class WeatherScreen extends React.Component {
   // }
 
   render() {
-    const { isLoading, currentWeather } = this.state;
+    const { isLoading, weatherInformation } = this.props;
     return (
       <View style={styles.container}>
-        {isLoading ? (
+        {!isLoading ? (
           <View style={styles.loadingContainer}>
             <Text style={styles.loadingText}>Fetching The Weather</Text>
           </View>
-        ) : (
-            <Weather forecastWeather={forecastWeather.list} />
-          )}
+        ) : // <Weather forecastWeather={weatherInformation.list} />
+        null}
+        <Text>Hello</Text>
       </View>
     );
   }
 }
+
+const mapStateToProps = state => {
+  console.log(state, "hello");
+  return {
+    weatherInformation: state.weatherReducer.weatherInformation,
+    isLoading: state.weatherReducer.isLoading
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchWeatherInformation: () => dispatch(loadWeatherInformation())
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(WeatherScreen);
 
 const styles = StyleSheet.create({
   container: {

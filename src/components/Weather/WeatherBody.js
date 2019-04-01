@@ -2,7 +2,7 @@ import React from "react";
 import { View, FlatList, Text, StyleSheet } from "react-native";
 import WeatherBodyFuture from "./WeatherBodyFuture";
 import WeatherBodyCurrent from "./WeatherBodyCurrent";
-import { TEXT_COLOR } from "../../utils/constant";
+import { TEXT_COLOR } from "../../../utils/constant";
 
 var _ = require("lodash");
 

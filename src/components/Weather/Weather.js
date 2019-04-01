@@ -3,8 +3,8 @@ import { View, Text, StyleSheet } from "react-native";
 import PropTypes from "prop-types";
 import WeatherHeader from "./WeatherHeader";
 import WeatherBody from "./WeatherBody";
-import * as middlewares from "../../utils/middlewares";
-import { BACKGROUND_COLOR, TEXT_COLOR } from "../../utils/constant";
+import * as middlewares from "../../../utils/middlewares";
+import { BACKGROUND_COLOR, TEXT_COLOR } from "../../../utils/constant";
 
 export default (Weather = ({ forecastWeather }) => {
   const weatherInformation = middlewares.analysisData(forecastWeather);

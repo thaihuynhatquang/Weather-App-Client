@@ -1,3 +1,4 @@
+var _ = require("lodash");
 import React, { Component } from "react";
 import {
   View,
@@ -16,7 +17,7 @@ import {
   TEXT_LARGE_SIZE,
   TEXT_MEDIUM_SIZE,
   TEXT_SMALL_SIZE
-} from "../../utils/constant";
+} from "../../../utils/constant";
 
 export class WeatherBodyCurrentDetails extends Component {
   constructor() {
@@ -35,6 +36,9 @@ export class WeatherBodyCurrentDetails extends Component {
   };
   render() {
     const WIDTH = Dimensions.get("window").width;
+    const { currentWeatherDetails } = this.props;
+    // console.log(_.flatten(_.toArray(currentWeatherDetails)), "weatherDetails");
+    console.log(currentWeatherDetails, "weatherDetails");
     return (
       <View style={{ flex: 1 }}>
         <View
