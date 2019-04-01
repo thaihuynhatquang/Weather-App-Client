@@ -21,7 +21,7 @@ export const loadWeatherInformation = location => {
           lat: location.lat,
           lon: location.lon,
           APPID: API_KEY,
-          units: "metric"
+          units: "metric",
         }
       })
       .then(res => {

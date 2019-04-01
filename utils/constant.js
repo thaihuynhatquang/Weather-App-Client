@@ -5,3 +5,4 @@ export const TEXT_SMALL_SIZE = 13;
 export const TEXT_MEDIUM_SIZE = 15;
 export const TEXT_LARGE_SIZE = 20;
 export const TEXT_TITLE = 25;
+

@@ -9,22 +9,20 @@ import { BACKGROUND_COLOR, TEXT_COLOR } from "../../../utils/constant";
 export default class Weather extends Component {
   render() {
     const { forecastWeather } = this.props;
-    const weatherInformation = middlewares.analysisData(forecastWeather);
+    const weatherInformation = middlewares.analysisData(forecastWeather.list);
     return (
       <View style={styles.weatherContainer}>
         <WeatherHeader
           temperature={weatherInformation[0][0].main.temp}
           mainWeather={weatherInformation[0][0].weather[0].main}
+          city={forecastWeather.city.name}
+          country={forecastWeather.city.country}
         />
         <WeatherBody weatherInformation={weatherInformation} />
       </View>
     );
   }
 }
-
-Weather.propTypes = {
-  forecastWeather: PropTypes.array.isRequired
-};
 
 const styles = StyleSheet.create({
   weatherContainer: {

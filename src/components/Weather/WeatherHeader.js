@@ -10,10 +10,10 @@ import {
 
 export default class WeatherHeader extends Component {
   render() {
-    const { temperature, mainWeather } = this.props;
+    const { temperature, mainWeather, city, country } = this.props;
     return (
       <View style={styles.headerContainer}>
-        <Text style={styles.textTitle}>Weather</Text>
+        <Text style={styles.textTitle}>{city}, {country}</Text>
         <View style={styles.iconTitle}>
           <View style={{ flexDirection: "row" }}>
             <Text style={styles.textTitle}>{_.round(temperature)}˚</Text>

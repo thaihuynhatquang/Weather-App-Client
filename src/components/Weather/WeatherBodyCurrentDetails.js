@@ -62,10 +62,12 @@ class WeatherBodyCurrentDetails extends Component {
             keyExtractor={(item, index) => item.dt.toString()}
             renderItem={i => {
               let hourly = i.item;
+              console.log(hourly);
               return (
                 <View style={styles.hourly}>
                   <Text style={styles.textHourly}>
-                    {hourly.datetime.fullDate}
+                    {hourly.datetime.daysOfWeek}, {hourly.datetime.day}{" "}
+                    {hourly.datetime.month}
                   </Text>
                   <Text style={styles.textHourly}>{hourly.datetime.hour}</Text>
                   <MaterialCommunityIcons

@@ -44,7 +44,7 @@ class WeatherScreen extends React.Component {
             <Text style={styles.loadingText}>Fetching The Weather Data</Text>
           </View>
         ) : (
-          <Weather forecastWeather={weatherInformation.list} />
+          <Weather forecastWeather={weatherInformation} />
         )}
       </View>
     );

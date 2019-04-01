@@ -18,16 +18,16 @@ export const convertEpochTime = epochTime => {
   var daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   var datetime = new Date(epochTime * 1000);
   return {
-    daysOfWeek: daysOfWeek[datetime.getDay()],
-    day: datetime.getDate(),
-    month: monthNames[datetime.getMonth()],
+    daysOfWeek: daysOfWeek[datetime.getUTCDay()],
+    day: datetime.getUTCDate(),
+    month: monthNames[datetime.getUTCMonth()],
     year: datetime.getFullYear(),
     fullDate:
-      datetime.getDate() +
+      datetime.getUTCDate() +
       " " +
-      monthNames[datetime.getMonth()] +
+      monthNames[datetime.getUTCMonth()] +
       " " +
-      datetime.getFullYear()
+      datetime.getUTCFullYear()
   };
 };
 
