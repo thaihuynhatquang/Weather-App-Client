@@ -10,7 +10,8 @@ const initialState = {
   error: null
 };
 
-export default function weatherReducer(state = initialState, action) {
+export default (weatherReducer = (state = initialState, action) => {
+  console.log(action);
   switch (action.type) {
     case GET_WEATHER_INFORMATION:
       return {
@@ -18,20 +19,19 @@ export default function weatherReducer(state = initialState, action) {
         isLoading: true
       };
     case GET_WEATHER_INFORMATION_SUCCESS:
-      console.log(action, "action");
       return {
         ...state,
         isLoading: false,
         error: null,
-        weatherInformation: action.payload.data
+        weatherInformation: action.weatherInformation
       };
     case GET_WEATHER_INFORMATION_FAILURE:
       return {
         ...state,
         isLoading: false,
-        error: true
+        error: action.error
       };
     default:
       return state;
   }
-}
+});

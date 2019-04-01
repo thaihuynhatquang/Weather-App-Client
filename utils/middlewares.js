@@ -22,9 +22,6 @@ export const convertEpochTime = epochTime => {
     day: datetime.getDate(),
     month: monthNames[datetime.getMonth()],
     year: datetime.getFullYear(),
-    hour: datetime.getUTCHours(),
-    minute: datetime.getMinutes(),
-    second: datetime.getSeconds(),
     fullDate:
       datetime.getDate() +
       " " +
@@ -40,6 +37,7 @@ export const analysisData = forecastWeather => {
     i => {
       _.forEach(i, j => {
         j.datetime = convertEpochTime(j.dt);
+        j.datetime.hour = j.dt_txt.slice(11, 16);
         j.weather[0].description = _.startCase(j.weather[0].description);
       });
     }

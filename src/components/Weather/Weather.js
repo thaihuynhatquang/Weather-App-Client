@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import PropTypes from "prop-types";
 import WeatherHeader from "./WeatherHeader";
@@ -6,18 +6,22 @@ import WeatherBody from "./WeatherBody";
 import * as middlewares from "../../../utils/middlewares";
 import { BACKGROUND_COLOR, TEXT_COLOR } from "../../../utils/constant";
 
-export default (Weather = ({ forecastWeather }) => {
-  const weatherInformation = middlewares.analysisData(forecastWeather);
-  return (
-    <View style={styles.weatherContainer}>
-      <WeatherHeader
-        temperature={weatherInformation[0][0].main.temp}
-        mainWeather={weatherInformation[0][0].weather[0].main}
-      />
-      <WeatherBody weatherInformation={weatherInformation} />
-    </View>
-  );
-});
+export default class Weather extends Component {
+  render() {
+    const { forecastWeather } = this.props;
+    const weatherInformation = middlewares.analysisData(forecastWeather);
+    return (
+      <View style={styles.weatherContainer}>
+        <WeatherHeader
+          temperature={weatherInformation[0][0].main.temp}
+          mainWeather={weatherInformation[0][0].weather[0].main}
+        />
+        <WeatherBody weatherInformation={weatherInformation} />
+      </View>
+    );
+  }
+}
+
 Weather.propTypes = {
   forecastWeather: PropTypes.array.isRequired
 };

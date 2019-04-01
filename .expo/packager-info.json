@@ -1,10 +1,10 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 6064,
-  "expoServerNgrokUrl": "https://hq-r5j.anonymous.weather-app.exp.direct",
-  "packagerNgrokUrl": "https://packager.hq-r5j.anonymous.weather-app.exp.direct",
-  "ngrokPid": 3736,
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "webpackServerPort": null
 }

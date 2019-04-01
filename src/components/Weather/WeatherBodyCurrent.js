@@ -8,7 +8,7 @@ import {
   TEXT_MEDIUM_SIZE,
   TEXT_SMALL_SIZE
 } from "../../../utils/constant";
-import { WeatherBodyCurrentDetails } from "./WeatherBodyCurrentDetails";
+import WeatherBodyCurrentDetails from "./WeatherBodyCurrentDetails";
 
 var _ = require("lodash");
 export default class WeatherBodyCurrent extends Component {
@@ -36,7 +36,7 @@ export default class WeatherBodyCurrent extends Component {
             color="#344046"
           />
         </View>
-        <WeatherBodyCurrentDetails currentWeatherDetails={information} />
+        <WeatherBodyCurrentDetails />
       </View>
     );
   }
