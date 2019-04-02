@@ -1,25 +1,12 @@
 import React, { Component } from "react";
-import {
-  View,
-  FlatList,
-  ScrollView,
-  StyleSheet,
-  Text,
-  Dimensions
-} from "react-native";
+import { View, FlatList, ScrollView, StyleSheet } from "react-native";
 import Modal from "react-native-modal";
 import { Button } from "react-native-elements";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import WeatherBodyFuture from "./WeatherBodyFuture";
 import WeatherBodyCurrent from "./WeatherBodyCurrent";
 import SearchBar from "./SearchBar";
-import {
-  TEXT_COLOR,
-  BACKGROUND_COLOR,
-  TEXT_SMALL_SIZE,
-  TEXT_MEDIUM_SIZE,
-  TEXT_LARGE_SIZE
-} from "../../../utils/constant";
+import { TEXT_COLOR, TEXT_LARGE_SIZE } from "../../../utils/constant";
 
 var _ = require("lodash");
 
