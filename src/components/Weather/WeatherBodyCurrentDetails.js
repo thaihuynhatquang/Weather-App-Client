@@ -26,9 +26,9 @@ class WeatherBodyCurrentDetails extends Component {
   constructor() {
     super();
     this.state = { expanded: false };
-    if (Platform.OS === "android") {
-      UIManager.setLayoutAnimationEnabledExperimental(true);
-    }
+    // if (Platform.OS === "android") {
+    //   UIManager.setLayoutAnimationEnabledExperimental(true);
+    // }
   }
 
   changeLayout = () => {
@@ -62,7 +62,6 @@ class WeatherBodyCurrentDetails extends Component {
             keyExtractor={(item, index) => item.dt.toString()}
             renderItem={i => {
               let hourly = i.item;
-              console.log(hourly);
               return (
                 <View style={styles.hourly}>
                   <Text style={styles.textHourly}>

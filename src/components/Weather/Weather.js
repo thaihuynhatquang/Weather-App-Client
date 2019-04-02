@@ -9,6 +9,7 @@ import { BACKGROUND_COLOR, TEXT_COLOR } from "../../../utils/constant";
 export default class Weather extends Component {
   render() {
     const { forecastWeather } = this.props;
+
     const weatherInformation = middlewares.analysisData(forecastWeather.list);
     return (
       <View style={styles.weatherContainer}>
