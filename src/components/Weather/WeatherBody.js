@@ -5,7 +5,7 @@ import { Button } from "react-native-elements";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import WeatherBodyFuture from "./WeatherBodyFuture";
 import WeatherBodyCurrent from "./WeatherBodyCurrent";
-import SearchBar from "./SearchBar";
+import SearchModal from "./SearchModal";
 import { TEXT_COLOR, TEXT_LARGE_SIZE } from "../../../utils/constant";
 
 var _ = require("lodash");
@@ -72,7 +72,7 @@ export default class WeatherBody extends Component {
           animationIn={"fadeIn"}
           animationOut={"fadeOut"}
         >
-          <SearchBar closeSearchModal={() => this.closeSearchModal()} />
+          <SearchModal closeSearchModal={() => this.closeSearchModal()} />
         </Modal>
       </ScrollView>
     );
