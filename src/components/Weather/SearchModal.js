@@ -15,7 +15,8 @@ import { listCity } from "../../../utils/SampleData";
 import {
   BACKGROUND_COLOR,
   TEXT_COLOR,
-  TEXT_LARGE_SIZE
+  TEXT_LARGE_SIZE,
+  TEXT_MEDIUM_SIZE
 } from "../../../utils/constant";
 
 var screen = Dimensions.get("screen");
@@ -110,17 +111,19 @@ class SearchModal extends Component {
             ListHeaderComponent={this.renderHeader}
           />
 
-          <Button
-            onPress={() => this.props.closeSearchModal()}
-            title="Close"
-            buttonStyle={{
-              backgroundColor: "transparent"
-            }}
-            titleStyle={{
-              color: TEXT_COLOR,
-              fontSize: TEXT_LARGE_SIZE
-            }}
-          />
+          <View style={styles.cancelButton}>
+            <Button
+              onPress={() => this.props.closeSearchModal()}
+              title="Close"
+              buttonStyle={{
+                backgroundColor: "#373b3d"
+              }}
+              titleStyle={{
+                color: "#86939e",
+                fontSize: TEXT_MEDIUM_SIZE
+              }}
+            />
+          </View>
         </View>
       </KeyboardAvoidingView>
     );
@@ -155,5 +158,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontSize: TEXT_LARGE_SIZE,
     color: TEXT_COLOR
+  },
+  cancelButton: {
+    justifyContent: "center",
+    marginLeft: "35%",
+    marginRight: "35%",
+    borderRadius: 3,
+    padding: 4
   }
 });

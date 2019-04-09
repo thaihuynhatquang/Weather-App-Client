@@ -41,7 +41,7 @@ class WeatherScreen extends React.Component {
           <View style={styles.loadingContainer}>
             <ActivityIndicator size="large" color={TEXT_COLOR} />
 
-            <Text style={styles.loadingText}>Fetching The Weather Data</Text>
+            <Text style={styles.loadingText}>Getting Weather Data...</Text>
           </View>
         ) : (
           <Weather forecastWeather={weatherInformation} />
@@ -69,7 +69,7 @@ export default connect(
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: BACKGROUND_COLOR,
+    backgroundColor: BACKGROUND_COLOR
   },
   loadingContainer: {
     flex: 1,
