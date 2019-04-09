@@ -21,16 +21,12 @@ export default class WeatherHeader extends Component {
         </View>
         <View style={styles.iconTitle}>
           <View style={{ flexDirection: "row" }}>
-            <Text style={styles.textTitle}>{_.round(temperature)}˚</Text>
             <MaterialCommunityIcons
-              size={25}
-              name={"weather-lightning-rainy"}
+              size={30}
+              name={"account"}
               color={TEXT_COLOR}
             />
           </View>
-          <Text style={[styles.textTitle, { fontSize: 15 }]}>
-            {mainWeather}
-          </Text>
         </View>
       </View>
     );
@@ -49,7 +45,8 @@ const styles = StyleSheet.create({
   },
   textTitle: {
     fontSize: TEXT_TITLE,
-    color: TEXT_COLOR
+    color: TEXT_COLOR,
+    fontWeight: "bold"
   },
   textSubTitle: {
     fontSize: TEXT_MEDIUM_SIZE,

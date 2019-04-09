@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Setup from "../components/Setup";
 
-export default class SetupScreen extends React.Component {
+export default class NoteScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>

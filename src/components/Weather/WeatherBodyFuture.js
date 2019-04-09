@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: TEXT_MEDIUM_SIZE,
+    fontWeight: "bold",
     color: TEXT_COLOR,
     marginBottom: 5
   }

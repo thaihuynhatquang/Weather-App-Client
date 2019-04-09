@@ -72,7 +72,7 @@ class WeatherBodyCurrentDetails extends Component {
                   <MaterialCommunityIcons
                     size={25}
                     name={"weather-rainy"}
-                    color={TEXT_COLOR}
+                    color={"white"}
                     style={{ margin: 5 }}
                   />
                   <Text style={styles.textHourly}>
@@ -85,10 +85,21 @@ class WeatherBodyCurrentDetails extends Component {
         </View>
         <TouchableOpacity activeOpacity={0.8} onPress={this.changeLayout}>
           {!this.state.expanded ? (
-            <Text style={styles.expandText}>View Details</Text>
+
+            <MaterialCommunityIcons
+              size={20}
+              name={"chevron-down"}
+              color={"white"}
+              style={{ alignSelf: "center" }}
+            />
           ) : (
-            <Text style={styles.expandText}>Collapse</Text>
-          )}
+              <MaterialCommunityIcons
+                size={20}
+                name={"chevron-up"}
+                color={"white"}
+                style={{ alignSelf: "center" }}
+              />
+            )}
         </TouchableOpacity>
       </View>
     );
@@ -105,9 +116,8 @@ export default connect(mapStateToProps)(WeatherBodyCurrentDetails);
 const styles = StyleSheet.create({
   expandText: {
     alignSelf: "center",
-    color: INACTIVE_TEXT_COLOR,
+    color: "white",
     fontSize: TEXT_SMALL_SIZE,
-    // fontStyle: "italic",
     marginBottom: 15
   },
   hourly: {
@@ -122,6 +132,6 @@ const styles = StyleSheet.create({
   },
   textHourly: {
     fontSize: TEXT_SMALL_SIZE,
-    color: TEXT_COLOR
+    color: "white"
   }
 });
