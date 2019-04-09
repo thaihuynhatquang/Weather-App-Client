@@ -58,8 +58,8 @@ export default class WeatherBody extends Component {
                 {information.index !== 0 ? (
                   <WeatherBodyFuture information={information} />
                 ) : (
-                  <WeatherBodyCurrent information={information} />
-                )}
+                    <WeatherBodyCurrent information={information} />
+                  )}
                 {information.index > 0 ? (
                   <View style={styles.lineBreak} />
                 ) : null}

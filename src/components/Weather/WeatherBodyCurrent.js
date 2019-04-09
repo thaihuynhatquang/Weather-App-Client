@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import {
-  TEXT_COLOR,
-  INACTIVE_TEXT_COLOR,
   TEXT_LARGE_SIZE,
   TEXT_MEDIUM_SIZE,
   TEXT_SMALL_SIZE
@@ -17,12 +15,10 @@ export default class WeatherBodyCurrent extends Component {
     return (
       <View style={styles.cardCurrentInformation}>
         <View style={styles.currentInformation}>
-          <View style={styles.currentDay}>
-            <Text style={{ color: "white", fontSize: TEXT_SMALL_SIZE }}>
+          <View>
+            <Text style={styles.currentDay}>
               Today
             </Text>
-          </View>
-          <View>
             <Text style={styles.temperature}>
               {_.round(information.item[0].main.temp)}˚
             </Text>
@@ -33,7 +29,7 @@ export default class WeatherBodyCurrent extends Component {
           <MaterialCommunityIcons
             size={35}
             name={"weather-rainy"}
-            color="#344046"
+            color="white"
           />
         </View>
         <WeatherBodyCurrentDetails />
@@ -45,16 +41,16 @@ export default class WeatherBodyCurrent extends Component {
 const styles = StyleSheet.create({
   cardCurrentInformation: {
     flex: 0,
-    backgroundColor: "white",
+    backgroundColor: "#45dcb3",
     shadowColor: "gray",
     shadowOffset: { width: 2, height: 2 },
     shadowOpacity: 0.8,
-    shadowRadius: 2,
+    shadowRadius: 5,
     flexDirection: "column",
     paddingTop: 20,
     paddingLeft: 20,
     paddingRight: 20,
-    borderRadius: 2
+    borderRadius: 5
   },
   currentInformation: {
     flex: 0,
@@ -63,32 +59,28 @@ const styles = StyleSheet.create({
     justifyContent: "space-between"
   },
   currentDay: {
-    position: "absolute",
-    paddingTop: 10,
-    paddingBottom: 10,
-    paddingRight: 20,
-    paddingLeft: 20,
-    backgroundColor: "#373b3d",
-    top: -40,
-    borderRadius: 2
+    color: "white",
+    fontSize: TEXT_LARGE_SIZE,
+    fontWeight: 'bold',
+    marginBottom: 5
   },
   temperature: {
-    color: TEXT_COLOR,
-    fontSize: TEXT_LARGE_SIZE
+    color: "white",
+    fontSize: TEXT_LARGE_SIZE * 2
   },
   datetime: {
     fontSize: TEXT_SMALL_SIZE,
-    color: TEXT_COLOR,
+    color: "white",
     marginBottom: 5
   },
   description: {
     fontSize: TEXT_MEDIUM_SIZE,
-    color: TEXT_COLOR,
+    color: "white",
     marginBottom: 5
   },
   expandText: {
     alignSelf: "center",
-    color: INACTIVE_TEXT_COLOR,
+    color: "white",
     fontSize: TEXT_SMALL_SIZE,
     fontStyle: "italic",
     marginBottom: 15,
