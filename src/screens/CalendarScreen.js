@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
-import Calendar from "../components/Calendar";
+import Calendar from "../components/Calendar/Calendar";
 import { onSignOut } from "../../utils/auth";
 
 export default ({ navigation }) => (
@@ -9,7 +9,8 @@ export default ({ navigation }) => (
     <Button
       backgroundColor="#03A9F4"
       title="SIGN OUT"
-      onPress={() => onSignOut().then(() => navigation.navigate("SignedOut"))} />
+      onPress={() => onSignOut().then(() => navigation.navigate("SignedOut"))}
+    />
   </View>
 );
 

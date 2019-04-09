@@ -1,42 +1,48 @@
 import React from "react";
 import { Platform, StatusBar } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { createBottomTabNavigator, createSwitchNavigator, createStackNavigator, createAppContainer } from "react-navigation";
+import {
+  createBottomTabNavigator,
+  createSwitchNavigator,
+  createStackNavigator,
+  createAppContainer
+} from "react-navigation";
 import CalendarScreen from "../src/screens/CalendarScreen";
 import WeatherScreen from "../src/screens/WeatherScreen";
 import LocationScreen from "../src/screens/LocationScreen";
 import NoteScreen from "../src/screens/NoteScreen";
-import SignInScreen from "../src/screens/SignInScreen"
-import SignUpScreen from "../src/screens/SignUpScreen"
+import SignInScreen from "../src/screens/SignInScreen";
+import SignUpScreen from "../src/screens/SignUpScreen";
 import { TEXT_COLOR, INACTIVE_TEXT_COLOR } from "./constant";
 
 const headerStyle = {
   marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
 };
 
-export const SignedOut = createStackNavigator({
-  SignUp: {
-    screen: SignUpScreen,
-    navigationOptions: {
-      title: "Sign Up",
-      headerStyle
+export const SignedOut = createStackNavigator(
+  {
+    SignUp: {
+      screen: SignUpScreen,
+      navigationOptions: {
+        title: "Sign Up",
+        headerStyle
+      }
+    },
+    SignIn: {
+      screen: SignInScreen,
+      navigationOptions: {
+        title: "Sign In",
+        headerStyle
+      }
     }
   },
-  SignIn: {
-    screen: SignInScreen,
+  {
+    headerMode: "none",
     navigationOptions: {
-      title: "Sign In",
-      headerStyle
-    }
-  }
-}, {
-    headerMode: 'none',
-    navigationOptions: {
-      headerVisible: false,
+      headerVisible: false
     }
   }
 );
-
 
 export const SignedIn = createBottomTabNavigator(
   {
@@ -51,8 +57,7 @@ export const SignedIn = createBottomTabNavigator(
     },
     Calendar: {
       screen: CalendarScreen
-    },
-
+    }
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
@@ -75,7 +80,9 @@ export const SignedIn = createBottomTabNavigator(
           iconName = `ios-compass`;
         }
         // You can return any component that you like here!
-        return <IconComponent name={iconName} size={iconSize} color={tintColor} />;
+        return (
+          <IconComponent name={iconName} size={iconSize} color={tintColor} />
+        );
       }
     }),
     initialRouteName: "Weather",
@@ -84,25 +91,27 @@ export const SignedIn = createBottomTabNavigator(
       inactiveTintColor: "#d2d3dd",
       showLabel: false,
       style: {
-        backgroundColor: '#f2f3f8',
-        borderTopColor: '#f2f3f8'
-      },
+        backgroundColor: "#f2f3f8",
+        borderTopColor: "#f2f3f8"
+      }
     }
   }
-)
+);
 
 export const createRootNavigator = (signedIn = false) => {
-  return createAppContainer(createSwitchNavigator(
-    {
-      SignedIn: {
-        screen: SignedIn
+  return createAppContainer(
+    createSwitchNavigator(
+      {
+        SignedIn: {
+          screen: SignedIn
+        },
+        SignedOut: {
+          screen: SignedOut
+        }
       },
-      SignedOut: {
-        screen: SignedOut
+      {
+        initialRouteName: signedIn ? "SignedIn" : "SignedOut"
       }
-    },
-    {
-      initialRouteName: signedIn ? "SignedIn" : "SignedOut"
-    }
-  ));
+    )
+  );
 };
