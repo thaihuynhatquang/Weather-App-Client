@@ -1,78 +1,85 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { API_KEY } from "../../utils/WeatherAPIKey";
-import Weather from "../components/Weather";
-
-import { YellowBox } from "react-native";
-YellowBox.ignoreWarnings(["Remote debugger"]);
-
-export default class WeatherScreen extends React.Component {
-  state = {
-    isLoading: true,
-    temperature: 0,
-    weatherCondition: null,
-    error: null
-  };
+import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
+import Weather from "../components/Weather/Weather";
+import { connect } from "react-redux";
+import { loadWeatherInformation } from "../store/actions/index";
+import {
+  BACKGROUND_COLOR,
+  TEXT_COLOR,
+  TEXT_LARGE_SIZE
+} from "../../utils/constant";
+class WeatherScreen extends React.Component {
+  _isMounted = false;
 
   componentDidMount() {
+    this._isMounted = true;
     navigator.geolocation.getCurrentPosition(
-      position => {
-        this.fetchWeather(position.coords.latitude, position.coords.longitude);
+      res => {
+        let location = {
+          lat: res.coords.latitude,
+          lon: res.coords.longitude
+        };
+        if (this._isMounted) {
+          this.props.fetchWeatherInformation(location);
+        }
       },
       error => {
-        this.setState({
-          error: "Error Getting Weather Condtions"
-        });
+        alert("Error Getting Weather Condtions");
       }
     );
   }
 
-  fetchWeather(lat, lon) {
-    fetch(
-      `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&APPID=${API_KEY}&units=metric`
-    )
-      .then(res => res.json())
-      .then(json => {
-        console.log(json);
-        this.setState({
-          temperature: json.main.temp,
-          weatherCondition: json.weather[0].main,
-          isLoading: false
-        });
-      })
-      .catch(err => {
-        console.log(err, "error");
-      });
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   render() {
-    const { isLoading, weatherCondition, temperature } = this.state;
+    const { isLoading, weatherInformation } = this.props;
     return (
       <View style={styles.container}>
         {isLoading ? (
           <View style={styles.loadingContainer}>
-            <Text style={styles.loadingText}>Fetching The Weather</Text>
+            <ActivityIndicator size="large" color={TEXT_COLOR} />
+
+            <Text style={styles.loadingText}>Getting Weather Data...</Text>
           </View>
         ) : (
-          <Weather weather={weatherCondition} temperature={temperature} />
+          <Weather forecastWeather={weatherInformation} />
         )}
       </View>
     );
   }
 }
 
+const mapStateToProps = state => ({
+  weatherInformation: state.weatherReducer.weatherInformation,
+  isLoading: state.weatherReducer.isLoading
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchWeatherInformation: location =>
+    dispatch(loadWeatherInformation(location))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(WeatherScreen);
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff"
+    backgroundColor: BACKGROUND_COLOR
   },
   loadingContainer: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#FFFDE4"
+    backgroundColor: BACKGROUND_COLOR
   },
   loadingText: {
-    fontSize: 30
+    marginTop: 20,
+    fontSize: TEXT_LARGE_SIZE,
+    color: TEXT_COLOR
   }
 });
