@@ -2,13 +2,19 @@ import React from "react";
 import { View, Image, Dimensions, StyleSheet, Button } from "react-native";
 import { Input } from "react-native-elements";
 import { onSignIn } from "../../utils/auth";
-import { TEXT_COLOR } from '../../utils/constant'
+import { TEXT_COLOR } from "../../utils/constant";
 
 const WIDTH = Dimensions.get("window").width;
 
 export default ({ navigation }) => (
   <View style={styles.container}>
-    <View style={{ backgroundColor: "#fbfbfb", alignItems: "center", paddingBottom: 60 }}>
+    <View
+      style={{
+        backgroundColor: "#fbfbfb",
+        alignItems: "center",
+        paddingBottom: 60
+      }}
+    >
       <Image
         style={{ height: WIDTH * 0.85, width: WIDTH * 0.85 }}
         resizeMode="center"
@@ -17,15 +23,13 @@ export default ({ navigation }) => (
             "https://www.upsieutoc.com/images/2019/04/09/Untitled-document.png"
         }}
       />
-      <Input containerStyle={styles.inputContainer}
-        placeholder='Username'
-      />
+      <Input containerStyle={styles.inputContainer} placeholder="Username" />
 
-      <Input containerStyle={styles.inputContainer}
-        placeholder='Password'
+      <Input
+        containerStyle={styles.inputContainer}
+        placeholder="Password"
         secureTextEntry
       />
-
     </View>
     <View style={styles.switchToSignup}>
       <View style={styles.registerButton}>
@@ -45,20 +49,17 @@ export default ({ navigation }) => (
         />
       </View>
     </View>
-
   </View>
 );
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f2f3f8",
-
+    backgroundColor: "#f2f3f8"
   },
   inputContainer: {
     paddingHorizontal: 50,
-    paddingVertical: 10,
-
+    paddingVertical: 10
   },
   registerButton: {
     flex: 1,
@@ -78,4 +79,4 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   }
-})
+});
