@@ -1,5 +1,6 @@
 import { AsyncStorage } from "react-native";
 import { isAndroid } from "./constant";
+import { Google } from "expo";
 export const USER_KEY = "auth-demo-key";
 
 export const onSignIn = () => AsyncStorage.setItem(USER_KEY, "true");
