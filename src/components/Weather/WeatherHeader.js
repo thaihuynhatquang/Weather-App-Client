@@ -2,11 +2,7 @@ import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 var _ = require("lodash");
-import {
-  TEXT_COLOR,
-  TEXT_TITLE,
-  TEXT_MEDIUM_SIZE
-} from "../../../utils/constant";
+import { TEXT_COLOR, TEXT_TITLE, TEXT_MEDIUM_SIZE } from "../../utils/constant";
 
 export default class WeatherHeader extends Component {
   render() {

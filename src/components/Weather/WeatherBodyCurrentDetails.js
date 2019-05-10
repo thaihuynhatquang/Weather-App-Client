@@ -19,7 +19,7 @@ import {
   TEXT_LARGE_SIZE,
   TEXT_MEDIUM_SIZE,
   TEXT_SMALL_SIZE
-} from "../../../utils/constant";
+} from "../../utils/constant";
 import { connect } from "react-redux";
 
 class WeatherBodyCurrentDetails extends Component {
@@ -85,7 +85,6 @@ class WeatherBodyCurrentDetails extends Component {
         </View>
         <TouchableOpacity activeOpacity={0.8} onPress={this.changeLayout}>
           {!this.state.expanded ? (
-
             <MaterialCommunityIcons
               size={20}
               name={"chevron-down"}
@@ -93,13 +92,13 @@ class WeatherBodyCurrentDetails extends Component {
               style={{ alignSelf: "center" }}
             />
           ) : (
-              <MaterialCommunityIcons
-                size={20}
-                name={"chevron-up"}
-                color={"white"}
-                style={{ alignSelf: "center" }}
-              />
-            )}
+            <MaterialCommunityIcons
+              size={20}
+              name={"chevron-up"}
+              color={"white"}
+              style={{ alignSelf: "center" }}
+            />
+          )}
         </TouchableOpacity>
       </View>
     );

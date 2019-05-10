@@ -6,7 +6,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import WeatherBodyFuture from "./WeatherBodyFuture";
 import WeatherBodyCurrent from "./WeatherBodyCurrent";
 import SearchModal from "./SearchModal";
-import { TEXT_COLOR, TEXT_LARGE_SIZE } from "../../../utils/constant";
+import { TEXT_COLOR, TEXT_LARGE_SIZE } from "../../utils/constant";
 
 var _ = require("lodash");
 
@@ -58,8 +58,8 @@ export default class WeatherBody extends Component {
                 {information.index !== 0 ? (
                   <WeatherBodyFuture information={information} />
                 ) : (
-                    <WeatherBodyCurrent information={information} />
-                  )}
+                  <WeatherBodyCurrent information={information} />
+                )}
                 {information.index > 0 ? (
                   <View style={styles.lineBreak} />
                 ) : null}

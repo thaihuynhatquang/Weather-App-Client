@@ -6,9 +6,9 @@ import {
 } from "./types";
 
 import axios from "axios";
-import { API_KEY } from "../../../utils/WeatherAPIKey";
+import { API_KEY } from "../../../src/utils/WeatherAPIKey";
 
-import { convertEpochTime } from "../../../utils/middlewares";
+import { convertEpochTime } from "../../../src/utils/middlewares";
 
 const API_URL = "http://api.openweathermap.org/data/2.5/forecast";
 
@@ -21,7 +21,7 @@ export const loadWeatherInformation = location => {
           lat: location.lat,
           lon: location.lon,
           APPID: API_KEY,
-          units: "metric",
+          units: "metric"
         }
       })
       .then(res => {

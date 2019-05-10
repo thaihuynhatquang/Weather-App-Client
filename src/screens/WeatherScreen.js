@@ -2,12 +2,12 @@ import React from "react";
 import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
 import Weather from "../components/Weather/Weather";
 import { connect } from "react-redux";
-import { loadWeatherInformation } from "../store/actions/index";
+import { loadWeatherInformation } from "../store/actions/weatherAction";
 import {
   BACKGROUND_COLOR,
   TEXT_COLOR,
   TEXT_LARGE_SIZE
-} from "../../utils/constant";
+} from "../utils/constant";
 class WeatherScreen extends React.Component {
   _isMounted = false;
 

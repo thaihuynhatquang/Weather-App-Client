@@ -9,15 +9,15 @@ import {
   Platform
 } from "react-native";
 import { connect } from "react-redux";
-import { loadWeatherInformation } from "../../store/actions";
+import { loadWeatherInformation } from "../../store/actions/weatherAction";
 import { Button, SearchBar } from "react-native-elements";
-import { listCity } from "../../../utils/SampleData";
+import { listCity } from "../../utils/SampleData";
 import {
   BACKGROUND_COLOR,
   TEXT_COLOR,
   TEXT_LARGE_SIZE,
   TEXT_MEDIUM_SIZE
-} from "../../../utils/constant";
+} from "../../utils/constant";
 
 var screen = Dimensions.get("screen");
 
