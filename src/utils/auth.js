@@ -2,7 +2,8 @@ import { AsyncStorage } from "react-native";
 import { platform, iosClientId, androidClientId } from "./constant";
 import { Google } from "expo";
 
-export const onSignIn = token => AsyncStorage.setItem("token", token);
+export const onSignIn = userInfo =>
+  AsyncStorage.setItem("token", userInfo.token);
 
 export const onSignOut = () => AsyncStorage.removeItem("token");
 

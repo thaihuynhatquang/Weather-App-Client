@@ -4,7 +4,7 @@ const initialState = {
   userInfo: {
     token: "",
     name: "",
-    userID: ""
+    picture: ""
   },
   loadingProfile: false,
   error: null

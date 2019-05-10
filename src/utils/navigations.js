@@ -19,10 +19,10 @@ const headerStyle = {
 
 export const SignedOut = createStackNavigator(
   {
-    SignUp: {
+    AuthScreen: {
       screen: AuthScreen,
       navigationOptions: {
-        title: "Authentice",
+        title: "AuthScreen",
         headerStyle
       }
     }

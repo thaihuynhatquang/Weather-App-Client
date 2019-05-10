@@ -8,7 +8,7 @@ export default ({ navigation }) => (
     <Calendar />
     <Button
       backgroundColor="#03A9F4"
-      title="SIGN OUT"
+      title="SIGN OUTTTT"
       onPress={() => onSignOut().then(() => navigation.navigate("SignedOut"))}
     />
   </View>

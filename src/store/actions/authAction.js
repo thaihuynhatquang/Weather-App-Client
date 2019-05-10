@@ -1,8 +1,22 @@
 import { AsyncStorage } from "react-native";
 import { GET_USER, GET_USER_SUCCESS, GET_USER_FAIL } from "./types";
 import axios from "axios";
+import { API_URL } from "../../utils/constant";
 
-const API_URL = "http://192.168.0.2:9000";
+export const checkToken = token => {
+  return (dispatch, getState) => {
+    dispatch(loginUserStarted());
+    axios
+      .get(`${API_URL}/user/auth`, token)
+      .then(res => {
+        let data = res.data;
+        dispatch(loginUserSuccess(data));
+      })
+      .catch(err => {
+        dispatch(loginUserFailure(err.message));
+      });
+  };
+};
 
 export const loginUser = userInfo => {
   return (dispatch, getState) => {
