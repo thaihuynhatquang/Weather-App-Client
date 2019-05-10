@@ -5,7 +5,7 @@ import {
   TEXT_COLOR,
   TEXT_MEDIUM_SIZE,
   TEXT_SMALL_SIZE
-} from "../../../utils/constant";
+} from "../../utils/constant";
 
 export default class WeatherBodyFuture extends Component {
   render() {
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     padding: 20,
-    borderRadius: 2,
+    borderRadius: 2
   },
   datetime: {
     fontSize: TEXT_SMALL_SIZE,

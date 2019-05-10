@@ -1,12 +1,9 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
+import { Button } from "react-native-elements";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 var _ = require("lodash");
-import {
-  TEXT_COLOR,
-  TEXT_TITLE,
-  TEXT_MEDIUM_SIZE
-} from "../../../utils/constant";
+import { TEXT_COLOR, TEXT_TITLE, TEXT_MEDIUM_SIZE } from "../../utils/constant";
 
 export default class WeatherHeader extends Component {
   render() {
@@ -21,10 +18,14 @@ export default class WeatherHeader extends Component {
         </View>
         <View style={styles.iconTitle}>
           <View style={{ flexDirection: "row" }}>
-            <MaterialCommunityIcons
-              size={30}
-              name={"account"}
-              color={TEXT_COLOR}
+            <Button
+              icon={
+                <MaterialCommunityIcons
+                  size={30}
+                  name={"account"}
+                  color={TEXT_COLOR}
+                />
+              }
             />
           </View>
         </View>

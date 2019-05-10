@@ -1,7 +1,7 @@
 import React from "react";
-import { createRootNavigator } from "./utils/navigations";
+import { createRootNavigator } from "./src/utils/navigations";
 import { Provider } from "react-redux";
-import { isSignedIn } from "./utils/auth";
+import { isSignedIn } from "./src/utils/auth";
 
 import configureStore from "./src/store/configureStore";
 import { YellowBox } from "react-native";

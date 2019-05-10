@@ -7,13 +7,11 @@ import {
   createStackNavigator,
   createAppContainer
 } from "react-navigation";
-import CalendarScreen from "../src/screens/CalendarScreen";
-import WeatherScreen from "../src/screens/WeatherScreen";
-import LocationScreen from "../src/screens/LocationScreen";
-import NoteScreen from "../src/screens/NoteScreen";
-import SignInScreen from "../src/screens/SignInScreen";
-import SignUpScreen from "../src/screens/SignUpScreen";
-import { TEXT_COLOR, INACTIVE_TEXT_COLOR } from "./constant";
+import CalendarScreen from "../screens/CalendarScreen";
+import WeatherScreen from "../screens/WeatherScreen";
+import LocationScreen from "../screens/LocationScreen";
+import NoteScreen from "../screens/NoteScreen";
+import AuthScreen from "../screens/AuthScreen";
 
 const headerStyle = {
   marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
@@ -21,17 +19,10 @@ const headerStyle = {
 
 export const SignedOut = createStackNavigator(
   {
-    SignUp: {
-      screen: SignUpScreen,
+    AuthScreen: {
+      screen: AuthScreen,
       navigationOptions: {
-        title: "Sign Up",
-        headerStyle
-      }
-    },
-    SignIn: {
-      screen: SignInScreen,
-      navigationOptions: {
-        title: "Sign In",
+        title: "AuthScreen",
         headerStyle
       }
     }

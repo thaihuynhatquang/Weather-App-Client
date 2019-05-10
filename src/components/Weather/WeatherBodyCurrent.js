@@ -5,7 +5,7 @@ import {
   TEXT_LARGE_SIZE,
   TEXT_MEDIUM_SIZE,
   TEXT_SMALL_SIZE
-} from "../../../utils/constant";
+} from "../../utils/constant";
 import WeatherBodyCurrentDetails from "./WeatherBodyCurrentDetails";
 
 var _ = require("lodash");
@@ -16,9 +16,7 @@ export default class WeatherBodyCurrent extends Component {
       <View style={styles.cardCurrentInformation}>
         <View style={styles.currentInformation}>
           <View>
-            <Text style={styles.currentDay}>
-              Today
-            </Text>
+            <Text style={styles.currentDay}>Today</Text>
             <Text style={styles.temperature}>
               {_.round(information.item[0].main.temp)}˚
             </Text>
@@ -61,7 +59,7 @@ const styles = StyleSheet.create({
   currentDay: {
     color: "white",
     fontSize: TEXT_LARGE_SIZE,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 5
   },
   temperature: {
