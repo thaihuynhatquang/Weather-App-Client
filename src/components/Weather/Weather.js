@@ -13,12 +13,15 @@ export default class Weather extends Component {
     return (
       <View style={styles.weatherContainer}>
         <WeatherHeader
-          temperature={weatherInformation[0][0].main.temp}
-          mainWeather={weatherInformation[0][0].weather[0].main}
+          temperature={forecastWeather.current.temp}
+          mainWeather={forecastWeather.current.main}
           city={forecastWeather.city.name}
           country={forecastWeather.city.country}
         />
-        <WeatherBody weatherInformation={weatherInformation} />
+        <WeatherBody
+          weatherInformation={weatherInformation}
+          currentWeather={forecastWeather.current}
+        />
       </View>
     );
   }

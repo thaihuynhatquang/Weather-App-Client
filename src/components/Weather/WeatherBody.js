@@ -12,11 +12,15 @@ var _ = require("lodash");
 
 export default class WeatherBody extends Component {
   state = {
-    isShowSearchModal: false
+    isShowSearchModal: false,
+    key: 0
   };
+
+  keyRerender = 0;
 
   openSearchModal = () => {
     this.setState({ isShowSearchModal: true });
+    this.keyRerender++;
   };
 
   closeSearchModal() {
@@ -24,7 +28,7 @@ export default class WeatherBody extends Component {
   }
 
   render() {
-    const { weatherInformation } = this.props;
+    const { weatherInformation, currentWeather } = this.props;
     return (
       <ScrollView style={styles.bodyContainer}>
         <Button
@@ -58,7 +62,7 @@ export default class WeatherBody extends Component {
                 {information.index !== 0 ? (
                   <WeatherBodyFuture information={information} />
                 ) : (
-                  <WeatherBodyCurrent information={information} />
+                  <WeatherBodyCurrent information={currentWeather} />
                 )}
                 {information.index > 0 ? (
                   <View style={styles.lineBreak} />
@@ -72,7 +76,10 @@ export default class WeatherBody extends Component {
           animationIn={"fadeIn"}
           animationOut={"fadeOut"}
         >
-          <SearchModal closeSearchModal={() => this.closeSearchModal()} />
+          <SearchModal
+            keyRerender={this.keyRerender}
+            closeSearchModal={() => this.closeSearchModal()}
+          />
         </Modal>
       </ScrollView>
     );

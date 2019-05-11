@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { View, Text, StyleSheet, Image } from "react-native";
 import {
   TEXT_COLOR,
   TEXT_MEDIUM_SIZE,
@@ -21,10 +20,16 @@ export default class WeatherBodyFuture extends Component {
             {information.item[0].weather[0].description}
           </Text>
         </View>
-        <MaterialCommunityIcons
-          size={35}
-          name={"weather-lightning"}
-          color="#344046"
+        <Image
+          style={{
+            height: 50,
+            width: 50
+          }}
+          source={{
+            uri: `http://openweathermap.org/img/w/${
+              information.item[0].weather[0].icon
+            }.png`
+          }}
         />
       </View>
     );

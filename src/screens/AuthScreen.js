@@ -10,7 +10,6 @@ const WIDTH = Dimensions.get("window").width;
 class AuthScreen extends React.Component {
   _loginGoogle = () => {
     signInWithGoogleAsync().then(item => {
-      console.log(item, "item");
       this.props.onLogin({ token: item.idToken, platform: item.platform });
       onSignIn(this.props.userInfo).then(() =>
         this.props.navigation.navigate("SignedIn")
