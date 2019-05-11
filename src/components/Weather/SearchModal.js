@@ -6,12 +6,16 @@ import {
   Dimensions,
   FlatList,
   KeyboardAvoidingView,
-  Platform
+  Platform,
+  Alert
 } from "react-native";
 import { connect } from "react-redux";
-import { loadWeatherInformation } from "../../store/actions/weatherAction";
+import {
+  loadWeatherInformation,
+  loadCityInformation,
+  clearListCity
+} from "../../store/actions/weatherAction";
 import { Button, SearchBar } from "react-native-elements";
-import { listCity } from "../../utils/SampleData";
 import {
   BACKGROUND_COLOR,
   TEXT_COLOR,
@@ -26,33 +30,38 @@ class SearchModal extends Component {
     super(props);
 
     this.state = {
-      loading: false,
-      data: [],
-      error: null
+      error: null,
+      searchValue: null
     };
-
-    this.arrayholder = listCity;
   }
 
-  renderHeader = () => {
-    return (
-      <SearchBar
-        placeholder="Type Here..."
-        onChangeText={text => this.searchFilterFunction(text)}
-        autoCorrect={false}
-        value={this.state.value}
-        containerStyle={{
-          backgroundColor: "transparent",
-          borderTopWidth: 0,
-          borderBottomWidth: 0,
-          padding: 0
-        }}
-        inputContainerStyle={{
-          backgroundColor: "#373b3d",
-          borderRadius: 3
-        }}
-      />
-    );
+  updateSearch = searchValue => {
+    this.setState({ searchValue });
+  };
+
+  searchCity = () => {
+    const city = this.state.searchValue;
+    if (!city) {
+      Alert.alert("At least 2 letters");
+    } else {
+      check = city.match(/([A-Za-z])/g);
+      if (check && check.length > 2) {
+        this.props.fetchListCityInformation(city);
+      } else {
+        Alert.alert("At least 2 letters");
+      }
+    }
+    this.search.clear();
+  };
+
+  onChooseCity = city => {
+    this.props.clearListCity();
+    this.props.fetchWeatherInformation(city.coord);
+  };
+
+  onCloseSearchModal = () => {
+    this.props.closeSearchModal();
+    this.props.clearListCity();
   };
 
   renderSeparator = () => {
@@ -61,34 +70,16 @@ class SearchModal extends Component {
         style={{
           height: 1,
           borderBottomWidth: 0.5,
-          borderBottomColor: "#373b3d",
+          borderBottomColor: "#055929",
           opactity: 0.1
         }}
       />
     );
   };
 
-  searchFilterFunction = text => {
-    if (text === "") {
-      this.setState({ value: "", data: [] });
-      return;
-    }
-    this.setState({
-      value: text
-    });
-    const newData = this.arrayholder.filter(item => {
-      const itemData = item.name.toUpperCase();
-      const textData = text.toUpperCase();
-      return itemData.indexOf(textData) > -1;
-    });
-    this.setState({ data: newData });
-  };
-
-  onChooseCity = city => {
-    this.props.fetchWeatherInformation(city.coord);
-  };
-
   render() {
+    const { listCity, isLoading } = this.props;
+    const { searchValue } = this.state;
     return (
       <KeyboardAvoidingView
         style={styles.modalContainer}
@@ -96,8 +87,34 @@ class SearchModal extends Component {
         behavior="padding"
       >
         <View style={styles.innerContainer}>
+          <SearchBar
+            ref={search => (this.search = search)}
+            placeholder="Type Here..."
+            onChangeText={this.updateSearch}
+            showLoading={isLoading}
+            autoCorrect={false}
+            value={searchValue}
+            containerStyle={{
+              backgroundColor: "transparent",
+              borderTopWidth: 0,
+              borderBottomWidth: 0,
+              padding: 0
+            }}
+            errorMessage={"At least 2 letters"}
+            errorStyle={{
+              color: "#cacbd5",
+              fontStyle: "italic"
+            }}
+            inputContainerStyle={{
+              backgroundColor: "#055929",
+              borderRadius: 3
+            }}
+            inputStyle={{
+              color: "white"
+            }}
+          />
           <FlatList
-            data={this.state.data}
+            data={listCity}
             renderItem={({ item }) => (
               <Text
                 style={styles.listCity}
@@ -108,18 +125,30 @@ class SearchModal extends Component {
             )}
             keyExtractor={item => item.id.toString()}
             ItemSeparatorComponent={this.renderSeparator}
-            ListHeaderComponent={this.renderHeader}
           />
 
-          <View style={styles.cancelButton}>
+          <View style={styles.button}>
             <Button
-              onPress={() => this.props.closeSearchModal()}
-              title="Close"
+              onPress={() => this.searchCity()}
+              title="Search"
               buttonStyle={{
-                backgroundColor: "#373b3d"
+                backgroundColor: "#055929",
+                marginRight: 15
               }}
               titleStyle={{
-                color: "#86939e",
+                color: "white",
+                fontSize: TEXT_MEDIUM_SIZE
+              }}
+            />
+            <Button
+              onPress={() => this.onCloseSearchModal()}
+              title="Close"
+              buttonStyle={{
+                backgroundColor: "#055929",
+                marginLeft: 15
+              }}
+              titleStyle={{
+                color: "white",
                 fontSize: TEXT_MEDIUM_SIZE
               }}
             />
@@ -129,14 +158,20 @@ class SearchModal extends Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  listCity: state.weatherReducer.listCity,
+  isLoading: state.weatherReducer.isLoadingCity
+});
 
 const mapDispatchToProps = dispatch => ({
   fetchWeatherInformation: location =>
-    dispatch(loadWeatherInformation(location))
+    dispatch(loadWeatherInformation(location)),
+  fetchListCityInformation: cityName => dispatch(loadCityInformation(cityName)),
+  clearListCity: () => dispatch(clearListCity())
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(SearchModal);
 
@@ -159,10 +194,9 @@ const styles = StyleSheet.create({
     fontSize: TEXT_LARGE_SIZE,
     color: TEXT_COLOR
   },
-  cancelButton: {
+  button: {
+    flexDirection: "row",
     justifyContent: "center",
-    marginLeft: "35%",
-    marginRight: "35%",
     borderRadius: 3,
     padding: 4
   }

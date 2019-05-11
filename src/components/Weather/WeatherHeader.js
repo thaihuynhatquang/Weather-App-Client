@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Image } from "react-native";
 import { Button } from "react-native-elements";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 var _ = require("lodash");
@@ -13,12 +13,24 @@ export default class WeatherHeader extends Component {
         <View style={{ flex: 1, alignItems: "flex-start" }}>
           <Text style={styles.textTitle}>Weather</Text>
           <Text style={styles.textSubTitle}>
-            {city}, {country}
+            {city}, {country}{" "}
+            {
+              <Image
+                style={{
+                  height: 11,
+                  width: 16
+                }}
+                source={{
+                  uri: `http://openweathermap.org/images/flags/${country.toLowerCase()}.png`
+                }}
+              />
+            }
           </Text>
         </View>
         <View style={styles.iconTitle}>
           <View style={{ flexDirection: "row" }}>
             <Button
+              type="clear"
               icon={
                 <MaterialCommunityIcons
                   size={30}

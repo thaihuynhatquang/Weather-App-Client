@@ -12,11 +12,15 @@ var _ = require("lodash");
 
 export default class WeatherBody extends Component {
   state = {
-    isShowSearchModal: false
+    isShowSearchModal: false,
+    key: 0
   };
+
+  keyRerender = 0;
 
   openSearchModal = () => {
     this.setState({ isShowSearchModal: true });
+    this.keyRerender++;
   };
 
   closeSearchModal() {
@@ -72,7 +76,10 @@ export default class WeatherBody extends Component {
           animationIn={"fadeIn"}
           animationOut={"fadeOut"}
         >
-          <SearchModal closeSearchModal={() => this.closeSearchModal()} />
+          <SearchModal
+            keyRerender={this.keyRerender}
+            closeSearchModal={() => this.closeSearchModal()}
+          />
         </Modal>
       </ScrollView>
     );

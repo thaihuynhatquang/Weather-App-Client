@@ -25,7 +25,7 @@ import { connect } from "react-redux";
 class WeatherBodyCurrentDetails extends Component {
   constructor() {
     super();
-    this.state = { expanded: false };
+    this.state = { expanded: true };
     // if (Platform.OS === "android") {
     //   UIManager.setLayoutAnimationEnabledExperimental(true);
     // }
@@ -48,14 +48,6 @@ class WeatherBodyCurrentDetails extends Component {
             alignItems: "center"
           }}
         >
-          <Image
-            style={{ height: WIDTH * 0.7, width: WIDTH * 0.7 }}
-            resizeMode="center"
-            source={{
-              uri:
-                "https://www.upsieutoc.com/images/2019/03/29/snow---day-01.png"
-            }}
-          />
           <FlatList
             horizontal={true}
             data={hourlyWeatherInformation}
@@ -69,11 +61,16 @@ class WeatherBodyCurrentDetails extends Component {
                     {hourly.datetime.month}
                   </Text>
                   <Text style={styles.textHourly}>{hourly.datetime.hour}</Text>
-                  <MaterialCommunityIcons
-                    size={25}
-                    name={"weather-rainy"}
-                    color={"white"}
-                    style={{ margin: 5 }}
+                  <Image
+                    style={{
+                      height: 40,
+                      width: 40
+                    }}
+                    source={{
+                      uri: `http://openweathermap.org/img/w/${
+                        hourly.weather[0].icon
+                      }.png`
+                    }}
                   />
                   <Text style={styles.textHourly}>
                     {_.round(hourly.main.temp)}˚C

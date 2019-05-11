@@ -2,23 +2,24 @@ import { AsyncStorage } from "react-native";
 import { platform, iosClientId, androidClientId } from "./constant";
 import { Google } from "expo";
 
-export const onSignIn = userInfo =>
-  AsyncStorage.setItem("token", userInfo.token);
+export const onSignIn = async userInfo => {
+  try {
+    await AsyncStorage.setItem("token", userInfo.token);
+  } catch (error) {}
+};
 
 export const onSignOut = () => AsyncStorage.removeItem("token");
 
-export const isSignedIn = () => {
-  return new Promise((resolve, reject) => {
-    AsyncStorage.getItem("token")
-      .then(res => {
-        if (res !== null && res !== "") {
-          resolve(true);
-        } else {
-          resolve(false);
-        }
-      })
-      .catch(err => reject(err));
-  });
+export const isSignedIn = async () => {
+  // return true;
+  try {
+    const value = await AsyncStorage.getItem("token");
+    if (value !== null && value !== "") {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {}
 };
 
 export const signInWithGoogleAsync = async () => {
