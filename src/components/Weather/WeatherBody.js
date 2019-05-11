@@ -28,7 +28,7 @@ export default class WeatherBody extends Component {
   }
 
   render() {
-    const { weatherInformation } = this.props;
+    const { weatherInformation, currentWeather } = this.props;
     return (
       <ScrollView style={styles.bodyContainer}>
         <Button
@@ -62,7 +62,7 @@ export default class WeatherBody extends Component {
                 {information.index !== 0 ? (
                   <WeatherBodyFuture information={information} />
                 ) : (
-                  <WeatherBodyCurrent information={information} />
+                  <WeatherBodyCurrent information={currentWeather} />
                 )}
                 {information.index > 0 ? (
                   <View style={styles.lineBreak} />

@@ -18,7 +18,9 @@ import {
   INACTIVE_TEXT_COLOR,
   TEXT_LARGE_SIZE,
   TEXT_MEDIUM_SIZE,
-  TEXT_SMALL_SIZE
+  TEXT_SMALL_SIZE,
+  API_URL,
+  platform
 } from "../../utils/constant";
 import { connect } from "react-redux";
 
@@ -37,15 +39,15 @@ class WeatherBodyCurrentDetails extends Component {
   };
 
   render() {
-    const WIDTH = Dimensions.get("window").width;
+    const { information } = this.props;
+    const isAndroid = platform === "android" ? true : false;
     const hourlyWeatherInformation = this.props.weatherInformation.list;
     return (
       <View style={{ flex: 1 }}>
         <View
           style={{
             height: this.state.expanded ? null : 0,
-            overflow: "hidden",
-            alignItems: "center"
+            overflow: "hidden"
           }}
         >
           <FlatList
@@ -79,7 +81,153 @@ class WeatherBodyCurrentDetails extends Component {
               );
             }}
           />
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-around"
+            }}
+          >
+            <View
+              style={{
+                flexDirection: "column",
+                justifyContent: "flex-start"
+              }}
+            >
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center"
+                }}
+              >
+                <Image
+                  style={{
+                    height: isAndroid ? 20 : 30,
+                    width: isAndroid ? 20 : 30,
+                    marginLeft: !isAndroid ? 10 : null
+                  }}
+                  source={{
+                    uri: `${API_URL}/img/weather-humidity.png`
+                  }}
+                />
+                <Text style={styles.textHourly}>
+                  Humidity: {information.humidity}%
+                </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center"
+                }}
+              >
+                <Image
+                  style={{
+                    height: isAndroid ? 20 : 30,
+                    width: isAndroid ? 20 : 30,
+                    marginLeft: !isAndroid ? 10 : null
+                  }}
+                  source={{
+                    uri: `${API_URL}/img/weather-cloud.png`
+                  }}
+                />
+                <Text style={styles.textHourly}>
+                  Clouds: {information.clouds}%
+                </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center"
+                }}
+              >
+                <Image
+                  style={{
+                    height: isAndroid ? 20 : 30,
+                    width: isAndroid ? 20 : 30,
+                    marginLeft: !isAndroid ? 10 : null
+                  }}
+                  source={{
+                    uri: `${API_URL}/img/weather-uv.png`
+                  }}
+                />
+                <Text style={styles.textHourly}>
+                  UV Index: {information.uv}
+                </Text>
+              </View>
+            </View>
+
+            <View
+              style={{
+                flexDirection: "column",
+                justifyContent: "flex-end"
+              }}
+            >
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center"
+                }}
+              >
+                <Image
+                  style={{
+                    height: isAndroid ? 20 : 30,
+                    width: isAndroid ? 20 : 30,
+                    marginLeft: !isAndroid ? 10 : null
+                  }}
+                  source={{
+                    uri: `${API_URL}/img/weather-wind.png`
+                  }}
+                />
+                <Text style={styles.textHourly}>
+                  Wind: {information.wind_speed} m/s
+                </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center"
+                }}
+              >
+                <Image
+                  style={{
+                    height: isAndroid ? 20 : 30,
+                    width: isAndroid ? 20 : 30,
+                    marginLeft: !isAndroid ? 10 : null
+                  }}
+                  source={{
+                    uri: `${API_URL}/img/weather-pressure.png`
+                  }}
+                />
+                <Text style={styles.textHourly}>
+                  Pressure: {information.pressure}
+                </Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center"
+                }}
+              >
+                <Image
+                  style={{
+                    height: isAndroid ? 20 : 30,
+                    width: isAndroid ? 20 : 30,
+                    marginLeft: !isAndroid ? 10 : null
+                  }}
+                  source={{
+                    uri: `${API_URL}/img/weather-visibility.png`
+                  }}
+                />
+                <Text style={styles.textHourly}>
+                  Visibility: {information.visibility} km
+                </Text>
+              </View>
+              <View>
+                <Text />
+              </View>
+            </View>
+          </View>
         </View>
+
         <TouchableOpacity activeOpacity={0.8} onPress={this.changeLayout}>
           {!this.state.expanded ? (
             <MaterialCommunityIcons
@@ -127,6 +275,10 @@ const styles = StyleSheet.create({
     borderRadius: 3
   },
   textHourly: {
+    fontSize: TEXT_SMALL_SIZE,
+    color: "white"
+  },
+  textDetails: {
     fontSize: TEXT_SMALL_SIZE,
     color: "white"
   }

@@ -7,7 +7,8 @@ import {
   FlatList,
   KeyboardAvoidingView,
   Platform,
-  Alert
+  Alert,
+  Image
 } from "react-native";
 import { connect } from "react-redux";
 import {
@@ -64,19 +65,6 @@ class SearchModal extends Component {
     this.props.clearListCity();
   };
 
-  renderSeparator = () => {
-    return (
-      <View
-        style={{
-          height: 1,
-          borderBottomWidth: 0.5,
-          borderBottomColor: "#055929",
-          opactity: 0.1
-        }}
-      />
-    );
-  };
-
   render() {
     const { listCity, isLoading } = this.props;
     const { searchValue } = this.state;
@@ -116,20 +104,34 @@ class SearchModal extends Component {
           <FlatList
             data={listCity}
             renderItem={({ item }) => (
-              <Text
-                style={styles.listCity}
+              <Button
                 onPress={() => this.onChooseCity(item)}
-              >
-                {item.name}
-              </Text>
+                title={item.name + ", " + item.country + " "}
+                titleStyle={{
+                  color: "#2e8733"
+                }}
+                icon={
+                  <Image
+                    style={{
+                      height: 11,
+                      width: 16
+                    }}
+                    source={{
+                      uri: `http://openweathermap.org/images/flags/${item.country.toLowerCase()}.png`
+                    }}
+                  />
+                }
+                rightIcon={true}
+                type="clear"
+              />
             )}
             keyExtractor={item => item.id.toString()}
-            ItemSeparatorComponent={this.renderSeparator}
           />
 
           <View style={styles.button}>
             <Button
               onPress={() => this.searchCity()}
+              loading={isLoading}
               title="Search"
               buttonStyle={{
                 backgroundColor: "#055929",
