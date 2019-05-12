@@ -45,10 +45,6 @@ class Location extends React.Component {
     return (
       <View style={{ flex: 1 }}>
         <MapView
-          provider={MapView.PROVIDER_GOOGLE}
-          showsUserLocation
-          showsScale
-          rotateEnabled
           userLocationAnnotationTitle="Your Current Location"
           style={{ flex: 1 }}
           region={{
