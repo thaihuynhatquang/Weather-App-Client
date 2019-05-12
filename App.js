@@ -2,7 +2,7 @@ import React from "react";
 import { createRootNavigator } from "./src/utils/navigations";
 import { Provider } from "react-redux";
 import { isSignedIn } from "./src/utils/auth";
-
+import { Permissions } from "expo";
 import configureStore from "./src/store/configureStore";
 import { YellowBox } from "react-native";
 
@@ -21,7 +21,7 @@ export default class App extends React.Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     isSignedIn()
       .then(res => this.setState({ signedIn: res, checkedSignIn: true }))
       .catch(err => alert("An error occurred"));
