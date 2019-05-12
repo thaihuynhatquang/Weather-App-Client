@@ -1,19 +1,14 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  ActivityIndicator,
-  Dimensions
-} from "react-native";
+import { View, Text, ActivityIndicator } from "react-native";
 import { ButtonGroup } from "react-native-elements";
 import { MapView } from "expo";
 import {
-  BACKGROUND_COLOR,
+  TEXT_MEDIUM_SIZE,
   TEXT_COLOR,
-  TEXT_LARGE_SIZE
+  TEXT_LARGE_SIZE,
+  TEXT_SMALL_SIZE
 } from "../utils/constant";
-export default class Location extends React.Component {
+class Location extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -44,59 +39,55 @@ export default class Location extends React.Component {
   }
 
   render() {
-    const { latitude, longitude } = this.props;
+    const { coords } = this.props;
     const { layerType, selectedRadarTypeIndex } = this.state;
     const buttons = ["Cloud", "Wind", "Temperature", "Pressure"];
-    if (latitude) {
-      return (
-        <View style={{ flex: 1 }}>
-          <MapView
-            showsUserLocation
-            showsCompass
-            showsScale
-            style={{ flex: 1 }}
-            initialRegion={{
-              latitude,
-              longitude,
-              latitudeDelta: 120,
-              longitudeDelta: 120
-            }}
-          >
-            <MapView.UrlTile
-              urlTemplate={
-                "http://tile.openweathermap.org/map/" +
-                layerType +
-                "/{z}/{x}/{y}.png?appid=15db80d08721eec4d9cd77e4fcbfb163"
-              }
-              maximumZ={19}
-              flipY={false}
-            />
-          </MapView>
-          <ButtonGroup
-            style={{
-              flex: 1
-            }}
-            onPress={this.chooseRadarType}
-            selectedIndex={selectedRadarTypeIndex}
-            buttons={buttons}
-            containerStyle={{ height: 30 }}
-          />
-        </View>
-      );
-    }
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <ActivityIndicator size="large" color={TEXT_COLOR} />
-        <Text style={styles.loadingText}>Getting Location Data...</Text>
+      <View style={{ flex: 1 }}>
+        <MapView
+          provider={MapView.PROVIDER_GOOGLE}
+          showsUserLocation
+          showsScale
+          rotateEnabled
+          userLocationAnnotationTitle="Your Current Location"
+          style={{ flex: 1 }}
+          region={{
+            latitude: coords.lat,
+            longitude: coords.lon,
+            latitudeDelta: 120,
+            longitudeDelta: 120
+          }}
+        >
+          <MapView.Marker
+            title="Your Weather of Location "
+            coordinate={{
+              latitude: coords.lat,
+              longitude: coords.lon
+            }}
+          />
+          <MapView.UrlTile
+            urlTemplate={
+              "http://tile.openweathermap.org/map/" +
+              layerType +
+              "/{z}/{x}/{y}.png?appid=15db80d08721eec4d9cd77e4fcbfb163"
+            }
+            maximumZ={19}
+            flipY={false}
+          />
+        </MapView>
+        <ButtonGroup
+          style={{
+            flex: 1
+          }}
+          onPress={this.chooseRadarType}
+          selectedIndex={selectedRadarTypeIndex}
+          buttons={buttons}
+          containerStyle={{ height: 30 }}
+          textStyle={{ fontSize: TEXT_SMALL_SIZE }}
+        />
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  loadingText: {
-    marginTop: 20,
-    fontSize: TEXT_LARGE_SIZE,
-    color: TEXT_COLOR
-  }
-});
+export default Location;

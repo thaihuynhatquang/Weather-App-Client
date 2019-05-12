@@ -1,36 +1,25 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, ActivityIndicator, Text, View } from "react-native";
 import Location from "../components/Location";
-import { Permissions } from "expo";
-export default class LocationScreen extends React.Component {
-  state = {
-    latitude: null,
-    longitude: null
-  };
-
-  async componentDidMount() {
-    const { status } = await Permissions.getAsync(Permissions.LOCATION);
-    if (status !== "granted") {
-      const response = await Permissions.askAsync(Permissions.LOCATION);
-    }
-    navigator.geolocation.getCurrentPosition(
-      res => {
-        this.setState({
-          latitude: res.coords.latitude,
-          longitude: res.coords.longitude
-        });
-      },
-      error => {
-        Alert.alert("Error Getting Location");
-      }
-    );
-  }
-
+import { connect } from "react-redux";
+import {
+  BACKGROUND_COLOR,
+  TEXT_COLOR,
+  TEXT_LARGE_SIZE
+} from "../utils/constant";
+class LocationScreen extends React.Component {
   render() {
-    const { latitude, longitude } = this.state;
+    const { isLocationLoading, coords } = this.props;
     return (
       <View style={styles.container}>
-        <Location latitude={latitude} longitude={longitude} />
+        {isLocationLoading ? (
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator size="large" color={TEXT_COLOR} />
+            <Text style={styles.loadingText}>Getting Location Data...</Text>
+          </View>
+        ) : (
+          <Location coords={coords} />
+        )}
       </View>
     );
   }
@@ -40,5 +29,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff"
+  },
+  loadingContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: BACKGROUND_COLOR
+  },
+  loadingText: {
+    marginTop: 20,
+    fontSize: TEXT_LARGE_SIZE,
+    color: TEXT_COLOR
   }
 });
+
+const mapStateToProps = state => ({
+  coords: state.locationReducer.coords,
+  isLocationLoading: state.locationReducer.isLoading
+});
+
+export default connect(mapStateToProps)(LocationScreen);

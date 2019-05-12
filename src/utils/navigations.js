@@ -68,7 +68,7 @@ export const SignedIn = createBottomTabNavigator(
           iconName = `ios-partly-sunny`;
         } else if (routeName === "Location") {
           iconSize = 25;
-          iconName = `ios-compass`;
+          iconName = `ios-apps`;
         }
         // You can return any component that you like here!
         return (
