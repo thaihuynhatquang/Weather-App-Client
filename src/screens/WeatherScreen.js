@@ -3,41 +3,43 @@ import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
 import Weather from "../components/Weather/Weather";
 import { connect } from "react-redux";
 import { loadWeatherInformation } from "../store/actions/weatherAction";
+import { loadLocationInformation } from "../store/actions/locationAction";
+
 import {
   BACKGROUND_COLOR,
   TEXT_COLOR,
   TEXT_LARGE_SIZE
 } from "../utils/constant";
 class WeatherScreen extends React.Component {
-  _isMounted = false;
-
   componentDidMount() {
-    this._isMounted = true;
-    navigator.geolocation.getCurrentPosition(
-      res => {
-        let location = {
-          lat: res.coords.latitude,
-          lon: res.coords.longitude
-        };
-        if (this._isMounted) {
-          this.props.fetchWeatherInformation(location);
-        }
-      },
-      error => {
-        alert("Error Getting Weather Condtions");
-      }
-    );
+    if (!this.props.coords) {
+      this.getLocation()
+        .then(res => {
+          const coords = {
+            lat: res.coords.latitude,
+            lon: res.coords.longitude
+          };
+          this.props.fetchWeatherInformation(coords);
+          this.props.fetchLocationInformation(coords);
+        })
+        .catch(error => {
+          console.log(error);
+          // error nay chính là error của navigator.
+        });
+    }
   }
 
-  componentWillUnmount() {
-    this._isMounted = false;
+  getLocation() {
+    return new Promise(function(resolve, reject) {
+      navigator.geolocation.getCurrentPosition(resolve, reject);
+    });
   }
 
   render() {
-    const { isLoading, weatherInformation } = this.props;
+    const { isWeatherLoading, weatherInformation } = this.props;
     return (
       <View style={styles.container}>
-        {isLoading ? (
+        {isWeatherLoading ? (
           <View style={styles.loadingContainer}>
             <ActivityIndicator size="large" color={TEXT_COLOR} />
 
@@ -53,12 +55,14 @@ class WeatherScreen extends React.Component {
 
 const mapStateToProps = state => ({
   weatherInformation: state.weatherReducer.weatherInformation,
-  isLoading: state.weatherReducer.isLoading
+  isWeatherLoading: state.weatherReducer.isLoading,
+  coords: state.locationReducer.coords
 });
 
 const mapDispatchToProps = dispatch => ({
   fetchWeatherInformation: location =>
-    dispatch(loadWeatherInformation(location))
+    dispatch(loadWeatherInformation(location)),
+  fetchLocationInformation: coords => dispatch(loadLocationInformation(coords))
 });
 
 export default connect(

@@ -16,6 +16,7 @@ import {
   loadCityInformation,
   clearListCity
 } from "../../store/actions/weatherAction";
+import { loadLocationInformation } from "../../store/actions/locationAction";
 import { Button, SearchBar } from "react-native-elements";
 import {
   BACKGROUND_COLOR,
@@ -57,7 +58,12 @@ class SearchModal extends Component {
 
   onChooseCity = city => {
     this.props.clearListCity();
-    this.props.fetchWeatherInformation(city.coord);
+    const coords = {
+      lat: city.coord.lat,
+      lon: city.coord.lon
+    };
+    this.props.fetchWeatherInformation(coords);
+    this.props.fetchLocationInformation(coords);
   };
 
   onCloseSearchModal = () => {
@@ -131,7 +137,6 @@ class SearchModal extends Component {
           <View style={styles.button}>
             <Button
               onPress={() => this.searchCity()}
-              loading={isLoading}
               title="Search"
               buttonStyle={{
                 backgroundColor: "#055929",
@@ -169,6 +174,7 @@ const mapDispatchToProps = dispatch => ({
   fetchWeatherInformation: location =>
     dispatch(loadWeatherInformation(location)),
   fetchListCityInformation: cityName => dispatch(loadCityInformation(cityName)),
+  fetchLocationInformation: coords => dispatch(loadLocationInformation(coords)),
   clearListCity: () => dispatch(clearListCity())
 });
 

@@ -12,23 +12,21 @@ import { API_URL } from "../../utils/constant";
 import axios from "axios";
 import { convertEpochTime } from "../../../src/utils/middlewares";
 
-export const loadWeatherInformation = location => {
+export const loadWeatherInformation = coords => {
   return (dispatch, getState) => {
     dispatch(loadWeatherInformationStarted());
     axios
       .get(`${API_URL}/weather/postcast5day`, {
         params: {
-          lat: location.lat,
-          lon: location.lon
+          lat: coords.lat,
+          lon: coords.lon
         }
       })
       .then(res => {
         let data = _.forEach(res.data, item => {
           item.datetime = convertEpochTime(item.dt);
         });
-        return setTimeout(() => {
-          dispatch(loadWeatherInformationSuccess(data));
-        }, 200);
+        dispatch(loadWeatherInformationSuccess(data));
       })
       .catch(err => {
         dispatch(loadWeatherInformationFailure(err.message));
