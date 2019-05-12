@@ -1,4 +1,9 @@
-import { GET_USER, GET_USER_SUCCESS, GET_USER_FAIL } from "../actions/types";
+import {
+  GET_USER,
+  GET_USER_SUCCESS,
+  GET_USER_FAIL,
+  REMOVE_USER
+} from "../actions/types";
 
 const initialState = {
   userInfo: {
@@ -25,6 +30,17 @@ export default (authReducer = (state = initialState, action) => {
         ...state,
         loadingProfile: false,
         error: action.error
+      };
+    case REMOVE_USER:
+      return {
+        ...state,
+        userInfo: {
+          token: "",
+          name: "",
+          picture: ""
+        },
+        loadingProfile: false,
+        error: null
       };
     default:
       return state;

@@ -5,7 +5,8 @@ import {
   GET_CITY_INFORMATION,
   GET_CITY_INFORMATION_SUCCESS,
   GET_CITY_INFORMATION_FAILURE,
-  REMOVE_CITY_INFORMATION
+  REMOVE_CITY_INFORMATION,
+  REMOVE_WEATHER_INFORMATION
 } from "../actions/types";
 
 const initialState = {
@@ -60,6 +61,16 @@ export default (weatherReducer = (state = initialState, action) => {
         isLoading: false,
         listCity: []
       };
+    case REMOVE_WEATHER_INFORMATION:
+      return {
+        ...state,
+        isLoading: true,
+        isLoadingCity: false,
+        listCity: [],
+        weatherInformation: [],
+        error: null
+      };
+
     default:
       return state;
   }

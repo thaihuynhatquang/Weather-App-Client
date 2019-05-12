@@ -45,6 +45,7 @@ class Location extends React.Component {
     return (
       <View style={{ flex: 1 }}>
         <MapView
+          showsUserLocation={true}
           userLocationAnnotationTitle="Your Current Location"
           style={{ flex: 1 }}
           region={{

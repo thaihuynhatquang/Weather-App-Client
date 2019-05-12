@@ -1,7 +1,8 @@
 import {
   GET_LOCATION_INFORMATION,
   GET_LOCATION_INFORMATION_SUCCESS,
-  GET_LOCATION_INFORMATION_FAILURE
+  GET_LOCATION_INFORMATION_FAILURE,
+  REMOVE_LOCATION_INFORMATION
 } from "../actions/types";
 
 const initialState = {
@@ -29,6 +30,13 @@ export default (locationReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
         error: action.error
+      };
+    case REMOVE_LOCATION_INFORMATION:
+      return {
+        ...state,
+        isLoading: true,
+        coords: null,
+        error: null
       };
     default:
       return state;

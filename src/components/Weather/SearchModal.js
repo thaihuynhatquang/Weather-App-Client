@@ -21,6 +21,7 @@ import { Button, SearchBar } from "react-native-elements";
 import {
   BACKGROUND_COLOR,
   TEXT_COLOR,
+  TEXT_SMALL_SIZE,
   TEXT_LARGE_SIZE,
   TEXT_MEDIUM_SIZE
 } from "../../utils/constant";
@@ -83,7 +84,7 @@ class SearchModal extends Component {
         <View style={styles.innerContainer}>
           <SearchBar
             ref={search => (this.search = search)}
-            placeholder="Type Here..."
+            placeholder="Type Your City Here..."
             onChangeText={this.updateSearch}
             showLoading={isLoading}
             autoCorrect={false}
@@ -132,6 +133,18 @@ class SearchModal extends Component {
               />
             )}
             keyExtractor={item => item.id.toString()}
+            ListEmptyComponent={
+              <Button
+                onPress={() => this.onChooseCity(item)}
+                title="No data. Enter your city above"
+                titleStyle={{
+                  color: "#2e8733",
+                  fontSize: TEXT_SMALL_SIZE,
+                  fontStyle: "italic"
+                }}
+                type="clear"
+              />
+            }
           />
 
           <View style={styles.button}>

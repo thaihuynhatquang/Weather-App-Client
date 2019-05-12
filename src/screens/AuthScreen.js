@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Image, Dimensions, StyleSheet } from "react-native";
+import { View, Image, Dimensions, StyleSheet, Alert } from "react-native";
 import { Input, Button } from "react-native-elements";
 import { connect } from "react-redux";
 import { onSignIn, authenticate, signInWithGoogleAsync } from "../utils/auth";
@@ -10,10 +10,17 @@ const WIDTH = Dimensions.get("window").width;
 class AuthScreen extends React.Component {
   _loginGoogle = () => {
     signInWithGoogleAsync().then(item => {
+      console.log(item, "Item");
       this.props.onLogin({ token: item.idToken, platform: item.platform });
-      onSignIn(this.props.userInfo).then(() =>
-        this.props.navigation.navigate("SignedIn")
-      );
+      if (item.cancelled) return;
+      if (this.props.loginError !== null) {
+        console.log(this.props.loginError);
+        Alert.alert("Authenticate Error");
+      } else {
+        onSignIn(this.props.userInfo).then(() =>
+          this.props.navigation.navigate("SignedIn")
+        );
+      }
     });
   };
 
@@ -73,7 +80,8 @@ class AuthScreen extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  userInfo: state.authReducer.userInfo
+  userInfo: state.authReducer.userInfo,
+  loginError: state.authReducer.error
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -8,7 +8,11 @@ export const onSignIn = async userInfo => {
   } catch (error) {}
 };
 
-export const onSignOut = () => AsyncStorage.removeItem("token");
+export const onSignOut = async () => {
+  try {
+    await AsyncStorage.removeItem("token");
+  } catch (error) {}
+};
 
 export const isSignedIn = async () => {
   // return true;

@@ -1,22 +1,13 @@
 import { AsyncStorage } from "react-native";
-import { GET_USER, GET_USER_SUCCESS, GET_USER_FAIL } from "./types";
+import {
+  GET_USER,
+  GET_USER_SUCCESS,
+  GET_USER_FAIL,
+  REMOVE_USER,
+  REMOVE_LOCATION_INFORMATION
+} from "./types";
 import axios from "axios";
 import { API_URL } from "../../utils/constant";
-
-export const checkToken = token => {
-  return (dispatch, getState) => {
-    dispatch(loginUserStarted());
-    axios
-      .get(`${API_URL}/user/auth`, token)
-      .then(res => {
-        let data = res.data;
-        dispatch(loginUserSuccess(data));
-      })
-      .catch(err => {
-        dispatch(loginUserFailure(err.message));
-      });
-  };
-};
 
 export const loginUser = userInfo => {
   return (dispatch, getState) => {
@@ -35,8 +26,9 @@ export const loginUser = userInfo => {
 
 export const logoutUser = () => {
   return dispatch => {
-    dispatch({ type: UNAUTH_USER });
-    AsyncStorage.removeItem("token");
+    dispatch({ type: REMOVE_USER });
+    dispatch({ type: REMOVE_LOCATION_INFORMATION });
+    dispatch({ type: REMOVE_WEATHER_INFORMATION });
   };
 };
 
