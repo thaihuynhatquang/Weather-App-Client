@@ -8,6 +8,7 @@ import {
 } from "./types";
 import axios from "axios";
 import { API_URL } from "../../utils/constant";
+import { Alert } from "react-native";
 
 export const loginUser = userInfo => {
   return (dispatch, getState) => {
@@ -20,6 +21,7 @@ export const loginUser = userInfo => {
         dispatch(loginUserSuccess(data));
       })
       .catch(err => {
+        Alert.alert("Server Error");
         dispatch(loginUserFailure(err.message));
       });
   };

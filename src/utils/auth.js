@@ -1,4 +1,4 @@
-import { AsyncStorage } from "react-native";
+import { AsyncStorage, alert } from "react-native";
 import { platform, iosClientId, androidClientId, API_URL } from "./constant";
 import { Google } from "expo";
 import axios from "axios";
@@ -20,21 +20,24 @@ export const onSignOut = async () => {
 export const isSignedIn = async () => {
   try {
     let userData = await AsyncStorage.getItem("userData");
+    if (!userData) return false;
     let data = JSON.parse(userData);
     await axios
       .post(`${API_URL}/user/auth`, { token: data.token })
       .then(res => {
         if (res.status !== 200) {
-          return null;
+          return true;
         }
       })
       .catch(error => {
+        Alert.alert("Timeout of 0ms Exceeded. Server Error");
         console.log(error);
-        return null;
+        return false;
       });
-    return data;
+    return true;
   } catch (error) {
     console.log("Something went wrong", error);
+    return false;
   }
 };
 

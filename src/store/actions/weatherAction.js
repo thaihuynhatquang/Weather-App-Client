@@ -8,6 +8,7 @@ import {
   GET_CITY_INFORMATION_FAILURE,
   REMOVE_CITY_INFORMATION
 } from "./types";
+import { Alert } from "react-native";
 import { API_URL } from "../../utils/constant";
 import axios from "axios";
 import { convertEpochTime } from "../../../src/utils/middlewares";
@@ -29,6 +30,7 @@ export const loadWeatherInformation = coords => {
         dispatch(loadWeatherInformationSuccess(data));
       })
       .catch(err => {
+        Alert.alert("Server Error");
         dispatch(loadWeatherInformationFailure(err.message));
       });
   };

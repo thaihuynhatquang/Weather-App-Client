@@ -16,8 +16,7 @@ export default class App extends React.Component {
     super(props);
 
     this.state = {
-      signedIn: null,
-      checkedSignIn: false
+      signedIn: false
     };
   }
 
@@ -29,17 +28,14 @@ export default class App extends React.Component {
     isSignedIn()
       .then(res => {
         if (res) {
-          this.setState({ signedIn: res, checkedSignIn: true });
+          this.setState({ signedIn: res });
         }
       })
       .catch(err => alert("An error occurred"));
   }
 
   render() {
-    const { checkedSignIn, signedIn } = this.state;
-    if (!checkedSignIn) {
-      return null;
-    }
+    const { signedIn } = this.state;
     const Layout = createRootNavigator(signedIn);
     return (
       <Provider store={store}>

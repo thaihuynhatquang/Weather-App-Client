@@ -1,10 +1,10 @@
 {
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
+  "expoServerNgrokUrl": "https://85-m2i.anonymous.weather-app.exp.direct",
+  "packagerNgrokUrl": "https://packager.85-m2i.anonymous.weather-app.exp.direct",
+  "ngrokPid": 4872,
   "devToolsPort": 19002,
-  "expoServerPort": null,
-  "packagerPort": null,
-  "packagerPid": null,
+  "expoServerPort": 19000,
+  "packagerPort": 19001,
+  "packagerPid": 10432,
   "webpackServerPort": null
 }
