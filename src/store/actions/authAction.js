@@ -17,7 +17,7 @@ export const loginUser = userInfo => {
       .post(`${API_URL}/user/loginWithGoogle`, userInfo)
       .then(res => {
         let data = res.data;
-        console.log("Dispatch login");
+        axios.defaults.headers.common["Authorization"] = data.token;
         dispatch(loginUserSuccess(data));
       })
       .catch(err => {

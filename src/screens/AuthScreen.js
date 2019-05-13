@@ -19,7 +19,6 @@ class AuthScreen extends React.Component {
     await this.props.onLogin({ token: item.idToken, platform: item.platform });
 
     if (this.props.loginError !== null) {
-      console.log(this.props.loginError);
       Alert.alert("Authenticate Error");
     } else {
     }
@@ -27,7 +26,6 @@ class AuthScreen extends React.Component {
 
   shouldComponentUpdate(nextProps) {
     if (nextProps.userInfo !== this.props.userInfo) {
-      console.log(nextProps.userInfo, "user information");
       onSignIn(nextProps.userInfo).then(() =>
         nextProps.navigation.navigate("SignedIn")
       );
