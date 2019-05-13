@@ -30,7 +30,7 @@ export const loadWeatherInformation = coords => {
         dispatch(loadWeatherInformationSuccess(data));
       })
       .catch(err => {
-        Alert.alert("Server Error");
+        Alert.alert("Timeout of 0ms Exceeded. Server Error");
         dispatch(loadWeatherInformationFailure(err.message));
       });
   };

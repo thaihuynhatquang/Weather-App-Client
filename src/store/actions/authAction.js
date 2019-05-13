@@ -21,7 +21,7 @@ export const loginUser = userInfo => {
         dispatch(loginUserSuccess(data));
       })
       .catch(err => {
-        Alert.alert("Server Error");
+        Alert.alert("Timeout of 0ms Exceeded. Server Error");
         dispatch(loginUserFailure(err.message));
       });
   };
