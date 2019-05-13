@@ -1,10 +1,10 @@
-import { AsyncStorage } from "react-native";
 import {
   GET_USER,
   GET_USER_SUCCESS,
   GET_USER_FAIL,
   REMOVE_USER,
-  REMOVE_LOCATION_INFORMATION
+  REMOVE_LOCATION_INFORMATION,
+  REMOVE_WEATHER_INFORMATION
 } from "./types";
 import axios from "axios";
 import { API_URL } from "../../utils/constant";
@@ -16,6 +16,7 @@ export const loginUser = userInfo => {
       .post(`${API_URL}/user/loginWithGoogle`, userInfo)
       .then(res => {
         let data = res.data;
+        console.log("Dispatch login");
         dispatch(loginUserSuccess(data));
       })
       .catch(err => {

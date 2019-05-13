@@ -16,7 +16,7 @@ export default class App extends React.Component {
     super(props);
 
     this.state = {
-      signedIn: false,
+      signedIn: null,
       checkedSignIn: false
     };
   }
@@ -27,7 +27,11 @@ export default class App extends React.Component {
       const response = await Permissions.askAsync(Permissions.LOCATION);
     }
     isSignedIn()
-      .then(res => this.setState({ signedIn: res, checkedSignIn: true }))
+      .then(res => {
+        if (res) {
+          this.setState({ signedIn: res, checkedSignIn: true });
+        }
+      })
       .catch(err => alert("An error occurred"));
   }
 

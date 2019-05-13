@@ -89,7 +89,7 @@ export const SignedIn = createBottomTabNavigator(
   }
 );
 
-export const createRootNavigator = (signedIn = false) => {
+export const createRootNavigator = (signedIn = null) => {
   return createAppContainer(
     createSwitchNavigator(
       {

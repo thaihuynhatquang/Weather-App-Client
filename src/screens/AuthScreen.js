@@ -10,19 +10,31 @@ const WIDTH = Dimensions.get("window").width;
 class AuthScreen extends React.Component {
   _loginGoogle = () => {
     signInWithGoogleAsync().then(item => {
-      console.log(item, "Item");
-      this.props.onLogin({ token: item.idToken, platform: item.platform });
       if (item.cancelled) return;
-      if (this.props.loginError !== null) {
-        console.log(this.props.loginError);
-        Alert.alert("Authenticate Error");
-      } else {
-        onSignIn(this.props.userInfo).then(() =>
-          this.props.navigation.navigate("SignedIn")
-        );
-      }
+      this._onLogin(item);
     });
   };
+
+  _onLogin = async item => {
+    await this.props.onLogin({ token: item.idToken, platform: item.platform });
+
+    if (this.props.loginError !== null) {
+      console.log(this.props.loginError);
+      Alert.alert("Authenticate Error");
+    } else {
+    }
+  };
+
+  shouldComponentUpdate(nextProps) {
+    if (nextProps.userInfo !== this.props.userInfo) {
+      console.log(nextProps.userInfo, "user information");
+      onSignIn(nextProps.userInfo).then(() =>
+        nextProps.navigation.navigate("SignedIn")
+      );
+      return true;
+    }
+    return false;
+  }
 
   render() {
     return (
