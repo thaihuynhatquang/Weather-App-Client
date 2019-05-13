@@ -10,7 +10,7 @@ import { StyleSheet, ActivityIndicator, Text, View } from "react-native";
 
 class NewsScreen extends React.Component {
   render() {
-    const { isNewsLoading } = this.props;
+    const { isNewsLoading, navigation } = this.props;
     return (
       <View style={styles.container}>
         {isNewsLoading ? (
@@ -19,7 +19,7 @@ class NewsScreen extends React.Component {
             <Text style={styles.loadingText}>Getting News Data...</Text>
           </View>
         ) : (
-          <News />
+          <News navigation={navigation} />
         )}
       </View>
     );

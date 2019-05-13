@@ -4,7 +4,8 @@ import {
   GET_USER_FAIL,
   REMOVE_USER,
   REMOVE_LOCATION_INFORMATION,
-  REMOVE_WEATHER_INFORMATION
+  REMOVE_WEATHER_INFORMATION,
+  REMOVE_NEWS_INFORMATION
 } from "./types";
 import axios from "axios";
 import { API_URL } from "../../utils/constant";
@@ -32,6 +33,7 @@ export const logoutUser = () => {
     dispatch({ type: REMOVE_USER });
     dispatch({ type: REMOVE_LOCATION_INFORMATION });
     dispatch({ type: REMOVE_WEATHER_INFORMATION });
+    dispatch({ type: REMOVE_NEWS_INFORMATION });
   };
 };
 

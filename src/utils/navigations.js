@@ -11,6 +11,7 @@ import CalendarScreen from "../screens/CalendarScreen";
 import WeatherScreen from "../screens/WeatherScreen";
 import LocationScreen from "../screens/LocationScreen";
 import NewsScreen from "../screens/NewsScreen";
+import NewsDetailScreen from "../screens/NewsDetailScreen";
 import AuthScreen from "../screens/AuthScreen";
 
 const headerStyle = {
@@ -35,13 +36,38 @@ export const SignedOut = createStackNavigator(
   }
 );
 
+export const News = createStackNavigator(
+  {
+    NewsScreen: {
+      screen: NewsScreen,
+      navigationOptions: {
+        title: "NewsScreen",
+        headerStyle
+      }
+    },
+    NewsDetailScreen: {
+      screen: NewsDetailScreen,
+      navigationOptions: {
+        title: "NewsDetailScreen",
+        headerStyle
+      }
+    }
+  },
+  {
+    headerMode: "none",
+    navigationOptions: {
+      headerVisible: false
+    }
+  }
+);
+
 export const SignedIn = createBottomTabNavigator(
   {
     Weather: {
       screen: WeatherScreen
     },
     News: {
-      screen: NewsScreen
+      screen: News
     },
     Location: {
       screen: LocationScreen

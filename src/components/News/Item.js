@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  TouchableHighlight
+} from "react-native";
 import {
   API_URL,
   TEXT_COLOR,
@@ -9,50 +16,66 @@ import {
 } from "../../utils/constant";
 
 export default class Item extends Component {
+  viewDetailNewsInformation = (navigation, item) => {
+    navigation.navigate("NewsDetailScreen", {
+      news: item
+    });
+  };
   render() {
+    const { navigation, item } = this.props;
     return (
       <View style={{ flex: 1, flexDirection: "column" }}>
-        <View
-          style={{
-            flex: 1,
-            flexDirection: "row",
-            backgroundColor: BACKGROUND_COLOR,
-            justifyContent: "center"
-          }}
+        <TouchableOpacity
+          onPress={() => this.viewDetailNewsInformation(navigation, item)}
         >
-          <Image
-            source={{ uri: `${API_URL}/img/news/${this.props.item.picture}` }}
-            style={{
-              width: 120,
-              height: 90,
-              margin: 10,
-              resizeMode: "cover",
-              alignSelf: "center"
-            }}
-          />
           <View
             style={{
               flex: 1,
-              flexDirection: "column",
+              flexDirection: "row",
+              backgroundColor: BACKGROUND_COLOR,
               justifyContent: "center"
             }}
           >
-            <Text style={styles.authorName}>{this.props.item.authorName}</Text>
-            <Text style={styles.title}>{this.props.item.title}</Text>
+            <Image
+              source={{ uri: `${API_URL}/img/news/${this.props.item.picture}` }}
+              style={{
+                width: 120,
+                height: 90,
+                margin: 10,
+                resizeMode: "cover",
+                alignSelf: "center"
+              }}
+            />
             <View
               style={{
-                flexDirection: "row",
-                justifyContent: "space-between"
+                flex: 1,
+                flexDirection: "column",
+                justifyContent: "center"
               }}
             >
-              <Text style={styles.datetime}>{this.props.item.datetime}</Text>
-              <Text style={styles.distance}>~{this.props.item.distance}km</Text>
+              <Text style={styles.authorName}>
+                {this.props.item.authorName}
+              </Text>
+              <Text style={styles.title}>{this.props.item.title}</Text>
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between"
+                }}
+              >
+                <Text style={styles.datetime}>{this.props.item.datetime}</Text>
+                <Text style={styles.distance}>
+                  ~{this.props.item.distance}km
+                </Text>
+              </View>
             </View>
           </View>
-        </View>
+        </TouchableOpacity>
         <View
           style={{
             height: 1,
+            marginTop: 20,
+            marginBottom: 20,
             backgroundColor: "white"
           }}
         />

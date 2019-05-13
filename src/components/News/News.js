@@ -32,14 +32,16 @@ class News extends React.Component {
   };
 
   render() {
-    const { isUpdating, news, offset } = this.props;
+    const { isUpdating, news, offset, navigation } = this.props;
     return (
       <View
         style={{ flex: 1, paddingTop: 20, backgroundColor: BACKGROUND_COLOR }}
       >
         <FlatList
           data={news}
-          renderItem={({ item }) => <Item item={item} />}
+          renderItem={({ item }) => (
+            <Item navigation={navigation} item={item} />
+          )}
           keyExtractor={item => item._id.toString()}
           ListEmptyComponent={<Text>No data</Text>}
           ListFooterComponent={
