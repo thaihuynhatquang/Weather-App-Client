@@ -4,6 +4,7 @@ import Weather from "../components/Weather/Weather";
 import { connect } from "react-redux";
 import { loadWeatherInformation } from "../store/actions/weatherAction";
 import { loadLocationInformation } from "../store/actions/locationAction";
+import { loadNewsInformation } from "../store/actions/newsWeatherAction";
 
 import {
   BACKGROUND_COLOR,
@@ -21,10 +22,10 @@ class WeatherScreen extends React.Component {
           };
           this.props.fetchWeatherInformation(coords);
           this.props.fetchLocationInformation(coords);
+          this.props.fetchNewsInformation(coords);
         })
         .catch(error => {
           console.log(error);
-          // error nay chính là error của navigator.
         });
     }
   }
@@ -62,7 +63,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   fetchWeatherInformation: location =>
     dispatch(loadWeatherInformation(location)),
-  fetchLocationInformation: coords => dispatch(loadLocationInformation(coords))
+  fetchLocationInformation: coords => dispatch(loadLocationInformation(coords)),
+  fetchNewsInformation: coords => dispatch(loadNewsInformation(coords))
 });
 
 export default connect(

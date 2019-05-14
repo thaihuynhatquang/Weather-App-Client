@@ -22,6 +22,7 @@ export const isSignedIn = async () => {
     let userData = await AsyncStorage.getItem("userData");
     if (!userData) return false;
     let data = JSON.parse(userData);
+    axios.defaults.headers.common["Authorization"] = data.token;
     await axios
       .post(`${API_URL}/user/auth`, { token: data.token })
       .then(res => {

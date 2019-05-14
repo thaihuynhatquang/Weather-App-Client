@@ -10,7 +10,8 @@ import {
 import CalendarScreen from "../screens/CalendarScreen";
 import WeatherScreen from "../screens/WeatherScreen";
 import LocationScreen from "../screens/LocationScreen";
-import NoteScreen from "../screens/NoteScreen";
+import NewsScreen from "../screens/NewsScreen";
+import NewsDetailScreen from "../screens/NewsDetailScreen";
 import AuthScreen from "../screens/AuthScreen";
 
 const headerStyle = {
@@ -35,13 +36,38 @@ export const SignedOut = createStackNavigator(
   }
 );
 
+export const News = createStackNavigator(
+  {
+    NewsScreen: {
+      screen: NewsScreen,
+      navigationOptions: {
+        title: "NewsScreen",
+        headerStyle
+      }
+    },
+    NewsDetailScreen: {
+      screen: NewsDetailScreen,
+      navigationOptions: {
+        title: "NewsDetailScreen",
+        headerStyle
+      }
+    }
+  },
+  {
+    headerMode: "none",
+    navigationOptions: {
+      headerVisible: false
+    }
+  }
+);
+
 export const SignedIn = createBottomTabNavigator(
   {
     Weather: {
       screen: WeatherScreen
     },
-    Note: {
-      screen: NoteScreen
+    News: {
+      screen: News
     },
     Location: {
       screen: LocationScreen
@@ -57,9 +83,9 @@ export const SignedIn = createBottomTabNavigator(
         let IconComponent = Ionicons;
         let iconName;
         let iconSize;
-        if (routeName === "Note") {
+        if (routeName === "News") {
           iconSize = 25;
-          iconName = `ios-list-box`;
+          iconName = `ios-images`;
         } else if (routeName === "Calendar") {
           iconSize = 25;
           iconName = `ios-calendar`;
