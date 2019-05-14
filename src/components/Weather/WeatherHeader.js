@@ -7,7 +7,7 @@ import { TEXT_COLOR, TEXT_TITLE, TEXT_MEDIUM_SIZE } from "../../utils/constant";
 
 export default class WeatherHeader extends Component {
   render() {
-    const { temperature, mainWeather, city, country } = this.props;
+    const { city, country } = this.props;
     return (
       <View style={styles.headerContainer}>
         <View style={{ flex: 1, alignItems: "flex-start" }}>

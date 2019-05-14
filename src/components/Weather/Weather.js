@@ -9,19 +9,14 @@ export default class Weather extends Component {
   render() {
     const { forecastWeather } = this.props;
 
-    const weatherInformation = middlewares.analysisData(forecastWeather.list);
+    // const weatherInformation = middlewares.analysisData(forecastWeather.list);
     return (
       <View style={styles.weatherContainer}>
         <WeatherHeader
-          temperature={forecastWeather.current.temp}
-          mainWeather={forecastWeather.current.main}
           city={forecastWeather.city.name}
           country={forecastWeather.city.country}
         />
-        <WeatherBody
-          weatherInformation={weatherInformation}
-          currentWeather={forecastWeather.current}
-        />
+        <WeatherBody weatherInformation={forecastWeather} />
       </View>
     );
   }

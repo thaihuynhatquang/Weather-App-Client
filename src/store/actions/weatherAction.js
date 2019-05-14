@@ -24,10 +24,15 @@ export const loadWeatherInformation = coords => {
         }
       })
       .then(res => {
-        let data = _.forEach(res.data, item => {
-          item.datetime = convertEpochTime(item.dt);
+        let response = res.data;
+        response.list = _.forEach(response.list, item => {
+          _.forEach(item, item => {
+            item.datetime = convertEpochTime(item.dt);
+            item.datetime.hour = item.dt_txt.slice(11, 16);
+            item.description = _.startCase(item.weather[0].description);
+          });
         });
-        dispatch(loadWeatherInformationSuccess(data));
+        dispatch(loadWeatherInformationSuccess(response));
       })
       .catch(err => {
         Alert.alert("Timeout of 0ms Exceeded. Server Error");

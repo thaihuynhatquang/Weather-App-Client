@@ -36,19 +36,29 @@ export const SignedOut = createStackNavigator(
   }
 );
 
-export const News = createStackNavigator(
+export const News = createStackNavigator({
+  NewsScreen: {
+    screen: NewsScreen,
+    navigationOptions: {
+      title: "News",
+      headerStyle
+    }
+  },
+  NewsDetailScreen: {
+    screen: NewsDetailScreen,
+    navigationOptions: {
+      title: "News",
+      headerStyle
+    }
+  }
+});
+
+export const Weather = createStackNavigator(
   {
-    NewsScreen: {
-      screen: NewsScreen,
+    WeatherScreen: {
+      screen: WeatherScreen,
       navigationOptions: {
-        title: "NewsScreen",
-        headerStyle
-      }
-    },
-    NewsDetailScreen: {
-      screen: NewsDetailScreen,
-      navigationOptions: {
-        title: "NewsDetailScreen",
+        title: "Weather",
         headerStyle
       }
     }
@@ -61,16 +71,26 @@ export const News = createStackNavigator(
   }
 );
 
+export const Radar = createStackNavigator({
+  LocationScreen: {
+    screen: LocationScreen,
+    navigationOptions: {
+      title: "Radar",
+      headerStyle
+    }
+  }
+});
+
 export const SignedIn = createBottomTabNavigator(
   {
     Weather: {
-      screen: WeatherScreen
+      screen: Weather
     },
     News: {
       screen: News
     },
     Location: {
-      screen: LocationScreen
+      screen: Radar
     },
     Calendar: {
       screen: CalendarScreen
