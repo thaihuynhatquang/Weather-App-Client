@@ -5,26 +5,24 @@ import {
   createBottomTabNavigator,
   createSwitchNavigator,
   createStackNavigator,
-  createAppContainer
+  createAppContainer,
+  HeaderBackButton
 } from "react-navigation";
 import CalendarScreen from "../screens/CalendarScreen";
 import WeatherScreen from "../screens/WeatherScreen";
 import LocationScreen from "../screens/LocationScreen";
 import NewsScreen from "../screens/NewsScreen";
 import NewsDetailScreen from "../screens/NewsDetailScreen";
+import PostNewsScreen from "../screens/PostNewsScreen";
 import AuthScreen from "../screens/AuthScreen";
-
-const headerStyle = {
-  marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0
-};
+import { TEXT_COLOR } from "./constant";
 
 export const SignedOut = createStackNavigator(
   {
     AuthScreen: {
       screen: AuthScreen,
       navigationOptions: {
-        title: "AuthScreen",
-        headerStyle
+        title: "AuthScreen"
       }
     }
   },
@@ -41,14 +39,22 @@ export const News = createStackNavigator({
     screen: NewsScreen,
     navigationOptions: {
       title: "News",
-      headerStyle
+      headerTintColor: TEXT_COLOR,
+      headerTitleStyle: { color: TEXT_COLOR }
     }
   },
   NewsDetailScreen: {
     screen: NewsDetailScreen,
     navigationOptions: {
-      title: "News",
-      headerStyle
+      headerTintColor: TEXT_COLOR,
+      headerTitleStyle: { color: TEXT_COLOR }
+    }
+  },
+  PostNewsScreen: {
+    screen: PostNewsScreen,
+    navigationOptions: {
+      headerTintColor: TEXT_COLOR,
+      headerTitleStyle: { color: TEXT_COLOR }
     }
   }
 });
@@ -58,8 +64,7 @@ export const Weather = createStackNavigator(
     WeatherScreen: {
       screen: WeatherScreen,
       navigationOptions: {
-        title: "Weather",
-        headerStyle
+        title: "Weather"
       }
     }
   },
@@ -71,15 +76,22 @@ export const Weather = createStackNavigator(
   }
 );
 
-export const Radar = createStackNavigator({
-  LocationScreen: {
-    screen: LocationScreen,
+export const Radar = createStackNavigator(
+  {
+    LocationScreen: {
+      screen: LocationScreen,
+      navigationOptions: {
+        title: "Radar"
+      }
+    }
+  },
+  {
+    headerMode: "none",
     navigationOptions: {
-      title: "Radar",
-      headerStyle
+      headerVisible: false
     }
   }
-});
+);
 
 export const SignedIn = createBottomTabNavigator(
   {
@@ -89,11 +101,8 @@ export const SignedIn = createBottomTabNavigator(
     News: {
       screen: News
     },
-    Location: {
+    Radar: {
       screen: Radar
-    },
-    Calendar: {
-      screen: CalendarScreen
     }
   },
   {
@@ -112,7 +121,7 @@ export const SignedIn = createBottomTabNavigator(
         } else if (routeName === "Weather") {
           iconSize = 25;
           iconName = `ios-partly-sunny`;
-        } else if (routeName === "Location") {
+        } else if (routeName === "Radar") {
           iconSize = 25;
           iconName = `ios-apps`;
         }
@@ -124,9 +133,8 @@ export const SignedIn = createBottomTabNavigator(
     }),
     initialRouteName: "Weather",
     tabBarOptions: {
-      activeTintColor: "#787b8c",
+      activeTintColor: "#2e8733",
       inactiveTintColor: "#d2d3dd",
-      showLabel: false,
       style: {
         backgroundColor: "#f2f3f8",
         borderTopColor: "#f2f3f8"

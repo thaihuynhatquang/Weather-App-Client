@@ -48,11 +48,11 @@ class Location extends React.Component {
           showsUserLocation={true}
           userLocationAnnotationTitle="Your Current Location"
           style={{ flex: 1 }}
-          region={{
+          initialRegion={{
             latitude: coords.lat,
             longitude: coords.lon,
-            latitudeDelta: 120,
-            longitudeDelta: 120
+            latitudeDelta: 30,
+            longitudeDelta: 30
           }}
         >
           <MapView.Marker
@@ -80,6 +80,10 @@ class Location extends React.Component {
           selectedIndex={selectedRadarTypeIndex}
           buttons={buttons}
           containerStyle={{ height: 30 }}
+          selectedButtonStyle={{
+            backgroundColor: "#2e8733"
+          }}
+          selectedTextStyle={{ fontSize: TEXT_SMALL_SIZE, color: "white" }}
           textStyle={{ fontSize: TEXT_SMALL_SIZE }}
         />
       </View>
