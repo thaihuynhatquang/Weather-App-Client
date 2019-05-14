@@ -28,7 +28,7 @@ export default class WeatherBody extends Component {
   }
 
   render() {
-    const { weatherInformation, currentWeather } = this.props;
+    const { weatherInformation } = this.props;
     return (
       <ScrollView style={styles.bodyContainer}>
         <Button
@@ -54,15 +54,15 @@ export default class WeatherBody extends Component {
         />
         <FlatList
           style={{ paddingTop: 10, paddingBottom: 40 }}
-          data={weatherInformation}
+          data={weatherInformation.list}
           keyExtractor={(item, index) => item[0].dt.toString()}
           renderItem={information => {
             return (
               <View style={{ marginTop: 15 }}>
                 {information.index !== 0 ? (
-                  <WeatherBodyFuture information={information} />
+                  <WeatherBodyFuture information={information.item} />
                 ) : (
-                  <WeatherBodyCurrent information={currentWeather} />
+                  <WeatherBodyCurrent information={information.item} />
                 )}
                 {information.index > 0 ? (
                   <View style={styles.lineBreak} />

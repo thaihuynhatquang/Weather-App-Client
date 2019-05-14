@@ -26,6 +26,7 @@ export default class Item extends Component {
     return (
       <View style={{ flex: 1, flexDirection: "column" }}>
         <TouchableOpacity
+          activeOpacity={0.8}
           onPress={() => this.viewDetailNewsInformation(navigation, item)}
         >
           <View

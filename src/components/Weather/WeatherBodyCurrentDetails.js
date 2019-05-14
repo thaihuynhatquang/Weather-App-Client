@@ -39,9 +39,8 @@ class WeatherBodyCurrentDetails extends Component {
   };
 
   render() {
-    const { information } = this.props;
+    const { information, weatherInformation } = this.props;
     const isAndroid = platform === "android" ? true : false;
-    const hourlyWeatherInformation = this.props.weatherInformation.list;
     return (
       <View style={{ flex: 1 }}>
         <View
@@ -52,7 +51,7 @@ class WeatherBodyCurrentDetails extends Component {
         >
           <FlatList
             horizontal={true}
-            data={hourlyWeatherInformation}
+            data={information}
             keyExtractor={(item, index) => item.dt.toString()}
             renderItem={i => {
               let hourly = i.item;
@@ -110,7 +109,7 @@ class WeatherBodyCurrentDetails extends Component {
                   }}
                 />
                 <Text style={styles.textHourly}>
-                  Humidity: {information.humidity}%
+                  Humidity: {weatherInformation.current.humidity}%
                 </Text>
               </View>
               <View
@@ -130,7 +129,7 @@ class WeatherBodyCurrentDetails extends Component {
                   }}
                 />
                 <Text style={styles.textHourly}>
-                  Clouds: {information.clouds}%
+                  Clouds: {weatherInformation.current.clouds}%
                 </Text>
               </View>
               <View
@@ -150,7 +149,7 @@ class WeatherBodyCurrentDetails extends Component {
                   }}
                 />
                 <Text style={styles.textHourly}>
-                  UV Index: {information.uv}
+                  UV Index: {weatherInformation.current.uv}
                 </Text>
               </View>
             </View>
@@ -178,7 +177,7 @@ class WeatherBodyCurrentDetails extends Component {
                   }}
                 />
                 <Text style={styles.textHourly}>
-                  Wind: {information.wind_speed} m/s
+                  Wind: {weatherInformation.current.wind_speed} m/s
                 </Text>
               </View>
               <View
@@ -198,7 +197,7 @@ class WeatherBodyCurrentDetails extends Component {
                   }}
                 />
                 <Text style={styles.textHourly}>
-                  Pressure: {information.pressure}
+                  Pressure: {weatherInformation.current.pressure}
                 </Text>
               </View>
               <View
@@ -218,7 +217,7 @@ class WeatherBodyCurrentDetails extends Component {
                   }}
                 />
                 <Text style={styles.textHourly}>
-                  Visibility: {information.visibility} km
+                  Visibility: {weatherInformation.current.visibility} km
                 </Text>
               </View>
               <View>

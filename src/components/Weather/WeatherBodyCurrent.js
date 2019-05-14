@@ -16,10 +16,10 @@ export default class WeatherBodyCurrent extends Component {
         <View style={styles.currentInformation}>
           <View>
             <Text style={styles.currentDay}>Today</Text>
-            <Text style={styles.temperature}>{_.round(information.temp)}˚</Text>
-            <Text style={styles.description}>
-              {_.startCase(information.description)}
+            <Text style={styles.temperature}>
+              {_.round(information[0].main.temp)}˚
             </Text>
+            <Text style={styles.description}>{information[0].description}</Text>
           </View>
           <Image
             style={{
@@ -27,7 +27,9 @@ export default class WeatherBodyCurrent extends Component {
               width: 50
             }}
             source={{
-              uri: `http://openweathermap.org/img/w/${information.icon}.png`
+              uri: `http://openweathermap.org/img/w/${
+                information[0].weather[0].icon
+              }.png`
             }}
           />
         </View>
@@ -76,13 +78,5 @@ const styles = StyleSheet.create({
     fontSize: TEXT_MEDIUM_SIZE,
     color: "white",
     marginBottom: 5
-  },
-  expandText: {
-    alignSelf: "center",
-    color: "white",
-    fontSize: TEXT_SMALL_SIZE,
-    fontStyle: "italic",
-    marginBottom: 15,
-    marginTop: 15
   }
 });
