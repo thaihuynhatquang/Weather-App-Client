@@ -29,14 +29,7 @@ export default class Item extends Component {
           activeOpacity={0.8}
           onPress={() => this.viewDetailNewsInformation(navigation, item)}
         >
-          <View
-            style={{
-              flex: 1,
-              flexDirection: "row",
-              backgroundColor: BACKGROUND_COLOR,
-              justifyContent: "center"
-            }}
-          >
+          <View style={styles.container}>
             <Image
               source={{ uri: `${API_URL}/img/news/${this.props.item.picture}` }}
               style={{
@@ -72,20 +65,24 @@ export default class Item extends Component {
             </View>
           </View>
         </TouchableOpacity>
-        <View
-          style={{
-            height: 1,
-            marginTop: 20,
-            marginBottom: 20,
-            backgroundColor: "white"
-          }}
-        />
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: "row",
+    backgroundColor: "white",
+    justifyContent: "center",
+    margin: 10,
+    shadowColor: "gray",
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.4,
+    shadowRadius: 5,
+    borderRadius: 3
+  },
   title: {
     color: TEXT_COLOR,
     padding: 5,

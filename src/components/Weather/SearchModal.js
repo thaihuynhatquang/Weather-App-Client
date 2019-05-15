@@ -17,6 +17,7 @@ import {
   clearListCity
 } from "../../store/actions/weatherAction";
 import { loadLocationInformation } from "../../store/actions/locationAction";
+import { loadNewsInformation } from "../../store/actions/newsWeatherAction";
 import { Button, SearchBar } from "react-native-elements";
 import {
   BACKGROUND_COLOR,
@@ -65,6 +66,7 @@ class SearchModal extends Component {
     };
     this.props.fetchWeatherInformation(coords);
     this.props.fetchLocationInformation(coords);
+    this.props.fetchNewsInformation(coords);
   };
 
   onCloseSearchModal = () => {
@@ -135,7 +137,6 @@ class SearchModal extends Component {
             keyExtractor={item => item.id.toString()}
             ListEmptyComponent={
               <Button
-                onPress={() => this.onChooseCity(item)}
                 title="No data. Enter your city above"
                 titleStyle={{
                   color: "#2e8733",
@@ -188,6 +189,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(loadWeatherInformation(location)),
   fetchListCityInformation: cityName => dispatch(loadCityInformation(cityName)),
   fetchLocationInformation: coords => dispatch(loadLocationInformation(coords)),
+  fetchNewsInformation: coords => dispatch(loadNewsInformation(coords)),
   clearListCity: () => dispatch(clearListCity())
 });
 
