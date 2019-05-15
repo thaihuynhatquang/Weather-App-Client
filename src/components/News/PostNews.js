@@ -57,9 +57,23 @@ export default class PostNews extends Component {
   _uploadNews = navigation => {
     const { title, content, image } = this.state;
     const bodyFormData = new FormData();
+    const uri = this.state.image;
+    if (uri != null) {
+      const uriParts = uri.split('.');
+      const fileType = uriParts[uriParts.length - 1];
+      bodyFormData.append('photo', {
+        uri,
+        name: `photo.${fileType}`,
+        type: `image/${fileType}`,
+      });
+    }
     bodyFormData.append("title", title);
     bodyFormData.append("content", content);
+    bodyFormData.append("lat", 105);
+    bodyFormData.append("lon", 21);
     bodyFormData.append("image", image);
+    console.log(bodyFormData, "day la data")
+    // let userData = await AsyncStorage.getItem("userData");
     axios({
       method: "post",
       url: `${API_URL}/news/newpost`,
@@ -131,11 +145,11 @@ export default class PostNews extends Component {
         {image ? (
           <Image style={styles.images} source={{ uri: image }} />
         ) : (
-          <Image
-            source={require("../../../assets/choose-image-white.png")}
-            style={styles.images}
-          />
-        )}
+            <Image
+              source={require("../../../assets/choose-image-white.png")}
+              style={styles.images}
+            />
+          )}
         <View style={styles.buttons}>
           <Button
             style={styles.uploadButton}
