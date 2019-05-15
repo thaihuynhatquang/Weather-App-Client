@@ -12,7 +12,9 @@ import {
   TEXT_COLOR,
   BACKGROUND_COLOR,
   TEXT_MEDIUM_SIZE,
-  TEXT_SMALL_SIZE
+  TEXT_SMALL_SIZE,
+  ACTIVE_TINT_COLOR,
+  BACKGROUND_THIRD_COLOR
 } from "../../utils/constant";
 
 export default class Item extends Component {
@@ -74,36 +76,36 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "row",
-    backgroundColor: "white",
+    backgroundColor: BACKGROUND_THIRD_COLOR,
     justifyContent: "center",
-    margin: 10,
-    shadowColor: "gray",
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.4,
-    shadowRadius: 5,
-    borderRadius: 3
+    margin: 10
+    // shadowColor: "gray",
+    // shadowOffset: { width: 2, height: 2 },
+    // shadowOpacity: 0.4,
+    // shadowRadius: 5,
+    // borderRadius: 3
   },
   title: {
-    color: TEXT_COLOR,
+    color: ACTIVE_TINT_COLOR,
     padding: 5,
     fontSize: TEXT_MEDIUM_SIZE
   },
   authorName: {
-    color: TEXT_COLOR,
+    color: ACTIVE_TINT_COLOR,
     padding: 5,
     fontSize: TEXT_MEDIUM_SIZE,
     fontWeight: "600"
   },
   datetime: {
     fontSize: (TEXT_SMALL_SIZE * 3) / 4,
-    color: TEXT_COLOR,
+    color: ACTIVE_TINT_COLOR,
     paddingLeft: 5,
     fontStyle: "italic",
     opacity: 0.8
   },
   distance: {
     fontSize: (TEXT_SMALL_SIZE * 3) / 4,
-    color: TEXT_COLOR,
+    color: ACTIVE_TINT_COLOR,
     paddingRight: 5,
     fontStyle: "italic",
     opacity: 0.8

@@ -6,16 +6,21 @@ import {
   createSwitchNavigator,
   createStackNavigator,
   createAppContainer,
-  HeaderBackButton
+  createDrawerNavigator
 } from "react-navigation";
-import CalendarScreen from "../screens/CalendarScreen";
+import ProfileScreen from "../screens/ProfileScreen";
 import WeatherScreen from "../screens/WeatherScreen";
 import LocationScreen from "../screens/LocationScreen";
 import NewsScreen from "../screens/NewsScreen";
 import NewsDetailScreen from "../screens/NewsDetailScreen";
 import PostNewsScreen from "../screens/PostNewsScreen";
 import AuthScreen from "../screens/AuthScreen";
-import { TEXT_COLOR } from "./constant";
+import {
+  TEXT_COLOR,
+  BACKGROUND_COLOR,
+  ACTIVE_TINT_COLOR,
+  INACTIVE_TINT_COLOR
+} from "./constant";
 
 export const SignedOut = createStackNavigator(
   {
@@ -39,67 +44,56 @@ export const News = createStackNavigator({
     screen: NewsScreen,
     navigationOptions: {
       title: "News",
-      headerTintColor: TEXT_COLOR,
-      headerTitleStyle: { color: TEXT_COLOR }
+      headerStyle: {
+        backgroundColor: BACKGROUND_COLOR
+      },
+      headerTintColor: ACTIVE_TINT_COLOR,
+      headerTitleStyle: { color: ACTIVE_TINT_COLOR, fontWeight: "bold" }
     }
   },
   NewsDetailScreen: {
     screen: NewsDetailScreen,
     navigationOptions: {
-      headerTintColor: TEXT_COLOR,
-      headerTitleStyle: { color: TEXT_COLOR }
+      headerStyle: {
+        backgroundColor: BACKGROUND_COLOR
+      },
+      headerTintColor: ACTIVE_TINT_COLOR,
+      headerTitleStyle: { color: ACTIVE_TINT_COLOR, fontWeight: "bold" }
     }
   },
   PostNewsScreen: {
     screen: PostNewsScreen,
     navigationOptions: {
-      headerTintColor: TEXT_COLOR,
-      headerTitleStyle: { color: TEXT_COLOR }
+      headerStyle: {
+        backgroundColor: BACKGROUND_COLOR
+      },
+      headerTintColor: ACTIVE_TINT_COLOR,
+      headerTitleStyle: { color: ACTIVE_TINT_COLOR, fontWeight: "bold" }
     }
   }
 });
 
-export const Weather = createStackNavigator(
-  {
-    WeatherScreen: {
-      screen: WeatherScreen,
-      navigationOptions: {
-        title: "Weather"
-      }
-    }
-  },
-  {
-    headerMode: "none",
+export const Radar = createStackNavigator({
+  LocationScreen: {
+    screen: LocationScreen,
     navigationOptions: {
-      headerVisible: false
+      title: "Radar",
+      headerStyle: {
+        backgroundColor: ACTIVE_TINT_COLOR
+      },
+      headerTintColor: BACKGROUND_COLOR,
+      headerTitleStyle: { color: BACKGROUND_COLOR, fontWeight: "bold" }
     }
   }
-);
-
-export const Radar = createStackNavigator(
-  {
-    LocationScreen: {
-      screen: LocationScreen,
-      navigationOptions: {
-        title: "Radar"
-      }
-    }
-  },
-  {
-    headerMode: "none",
-    navigationOptions: {
-      headerVisible: false
-    }
-  }
-);
+});
 
 export const SignedIn = createBottomTabNavigator(
   {
-    Weather: {
-      screen: Weather
-    },
     News: {
       screen: News
+    },
+    Weather: {
+      screen: WeatherScreen
     },
     Radar: {
       screen: Radar
@@ -133,13 +127,34 @@ export const SignedIn = createBottomTabNavigator(
     }),
     initialRouteName: "Weather",
     tabBarOptions: {
-      activeTintColor: "#2e8733",
-      inactiveTintColor: "#d2d3dd",
+      // activeTintColor: "#2e8733",
+      activeTintColor: ACTIVE_TINT_COLOR,
+      // inactiveTintColor: "#d2d3dd",
+      inactiveTintColor: INACTIVE_TINT_COLOR,
       style: {
-        backgroundColor: "#f2f3f8",
-        borderTopColor: "#f2f3f8"
+        // backgroundColor: "#f2f3f8",
+        backgroundColor: BACKGROUND_COLOR
+        // borderTopColor: "#f2f3f8"
       }
     }
+  }
+);
+
+export const SignedInDrawer = createDrawerNavigator(
+  {
+    SignedIn: {
+      screen: SignedIn
+    }
+  },
+  {
+    drawerPosition: "right",
+    contentComponent: ProfileScreen,
+    drawerType: "front"
+  },
+  {
+    drawerPosition: "left",
+    contentComponent: ProfileScreen,
+    drawerType: "front"
   }
 );
 
@@ -148,7 +163,7 @@ export const createRootNavigator = (signedIn = false) => {
     createSwitchNavigator(
       {
         SignedIn: {
-          screen: SignedIn
+          screen: SignedInDrawer
         },
         SignedOut: {
           screen: SignedOut

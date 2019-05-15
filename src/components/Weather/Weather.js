@@ -3,11 +3,15 @@ import { View, Text, StyleSheet } from "react-native";
 import WeatherHeader from "./WeatherHeader";
 import WeatherBody from "./WeatherBody";
 import * as middlewares from "../../utils/middlewares";
-import { BACKGROUND_COLOR, TEXT_COLOR } from "../../../src/utils/constant";
+import {
+  BACKGROUND_COLOR,
+  TEXT_COLOR,
+  ACTIVE_TINT_COLOR
+} from "../../../src/utils/constant";
 
 export default class Weather extends Component {
   render() {
-    const { forecastWeather } = this.props;
+    const { forecastWeather, navigation } = this.props;
 
     // const weatherInformation = middlewares.analysisData(forecastWeather.list);
     return (
@@ -15,6 +19,7 @@ export default class Weather extends Component {
         <WeatherHeader
           city={forecastWeather.city.name}
           country={forecastWeather.city.country}
+          navigation={navigation}
         />
         <WeatherBody weatherInformation={forecastWeather} />
       </View>
@@ -29,7 +34,7 @@ const styles = StyleSheet.create({
   },
   tempText: {
     fontSize: 20,
-    color: TEXT_COLOR
+    color: ACTIVE_TINT_COLOR
   },
   bodyContainer: {
     flex: 2,
@@ -40,6 +45,6 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 24,
-    color: "#fff"
+    color: ACTIVE_TINT_COLOR
   }
 });

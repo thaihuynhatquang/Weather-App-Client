@@ -1,37 +1,79 @@
 import React from "react";
-import { View, Text, StyleSheet, FlatList } from "react-native";
-import { Button, Icon } from "react-native-elements";
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  ScrollView,
+  RefreshControl,
+  ActivityIndicator
+} from "react-native";
 import Item from "./Item";
-import { updateNewsInformation } from "../../store/actions/newsWeatherAction";
+import {
+  updateNewsInformation,
+  loadNewsInformation
+} from "../../store/actions/newsWeatherAction";
 import { connect } from "react-redux";
 import {
   BACKGROUND_COLOR,
   TEXT_COLOR,
-  TEXT_SMALL_SIZE,
-  TEXT_LARGE_SIZE
+  TEXT_LARGE_SIZE,
+  ACTIVE_TINT_COLOR
 } from "../../utils/constant";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
+const isCloseToBottom = ({ layoutMeasurement, contentOffset, contentSize }) => {
+  const paddingToBottom = 10;
+  return (
+    layoutMeasurement.height + contentOffset.y >=
+    contentSize.height + paddingToBottom
+  );
+};
+
 class News extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      refreshing: false,
+      updating: false,
+      order: "location"
+    };
+  }
+
   postNews = navigation => {
     navigation.navigate("PostNewsScreen");
   };
 
-  updateNews = () => {
-    if (!this.props.offset) {
-      console.log("khoong cana update");
+  _onUpdate = async () => {
+    const { news, coords, offset, fetchUpdateNewsInformation } = this.props;
+
+    if (this.state.updating || offset <= 0) {
       return;
     }
+
+    if (news) {
+      let data = {
+        coords: coords,
+        offset: offset - 1
+      };
+      this.setState({ updating: true });
+      await fetchUpdateNewsInformation(data);
+      this.setState({ updating: false });
+    }
+  };
+
+  _onRefresh = async () => {
     let data = {
-      coords: this.props.coords,
-      offset: this.props.offset - 1
+      coords: this.props.coords
     };
 
-    this.props.fetchUpdateNewsInformation(data);
+    this.setState({ refreshing: true });
+    await this.props.fetchUpdateNewsInformation(data);
+    this.setState({ refreshing: false });
   };
 
   render() {
-    const { isUpdating, news, offset, navigation } = this.props;
+    const { isUpdating, news, navigation, isNewsLoading } = this.props;
     return (
       <View
         style={{ flex: 1, paddingTop: 20, backgroundColor: BACKGROUND_COLOR }}
@@ -40,38 +82,39 @@ class News extends React.Component {
           onPress={() => this.postNews(navigation)}
           size={TEXT_LARGE_SIZE * 2.5}
           name={"cloud-upload"}
-          color={TEXT_COLOR}
+          color={ACTIVE_TINT_COLOR}
           style={styles.addButton}
         />
-        <FlatList
-          data={news}
-          renderItem={({ item }) => (
-            <Item navigation={navigation} item={item} />
-          )}
-          keyExtractor={item => item._id.toString()}
-          ListEmptyComponent={<Text>No data</Text>}
-          ListFooterComponent={
-            <View>
-              {offset ? (
-                <Button
-                  title="Show more..."
-                  onPress={this.updateNews}
-                  titleStyle={{
-                    color: TEXT_COLOR,
-                    fontSize: TEXT_SMALL_SIZE,
-                    fontStyle: "italic"
-                  }}
-                  loading={isUpdating}
-                  disabled={isUpdating}
-                  loadingProps={{
-                    color: TEXT_COLOR
-                  }}
-                  type="clear"
-                />
-              ) : null}
-            </View>
-          }
-        />
+
+        {isNewsLoading ? null : (
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            refreshControl={
+              <RefreshControl
+                refreshing={this.state.refreshing}
+                onRefresh={() => this._onRefresh()}
+              />
+            }
+            onScroll={({ nativeEvent }) => {
+              if (isCloseToBottom(nativeEvent)) {
+                this._onUpdate();
+              }
+            }}
+            scrollEventThrottle={400}
+          >
+            {news.length === 0 ? <Text>No data</Text> : null}
+            {news.map(item => (
+              <Item
+                navigation={navigation}
+                item={item}
+                key={item._id.toString()}
+              />
+            ))}
+            {isUpdating ? (
+              <ActivityIndicator size="small" color={TEXT_COLOR} />
+            ) : null}
+          </ScrollView>
+        )}
       </View>
     );
   }
@@ -81,11 +124,13 @@ const mapStateToProps = state => ({
   coords: state.locationReducer.coords,
   isUpdating: state.newsReducer.isUpdating,
   offset: state.newsReducer.nextOffset,
-  news: state.newsReducer.news
+  news: state.newsReducer.news,
+  total: state.newsReducer.total
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchUpdateNewsInformation: data => dispatch(updateNewsInformation(data))
+  fetchUpdateNewsInformation: data => dispatch(updateNewsInformation(data)),
+  fetchLoadNewsInformation: data => dispatch(loadNewsInformation(data))
 });
 
 export default connect(

@@ -9,28 +9,20 @@ import {
   StyleSheet,
   LayoutAnimation,
   Image,
-  Dimensions,
   FlatList
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import {
-  TEXT_COLOR,
-  INACTIVE_TEXT_COLOR,
-  TEXT_LARGE_SIZE,
-  TEXT_MEDIUM_SIZE,
-  TEXT_SMALL_SIZE,
-  API_URL,
-  platform
-} from "../../utils/constant";
+import { TEXT_SMALL_SIZE, API_URL, platform } from "../../utils/constant";
 import { connect } from "react-redux";
 
 class WeatherBodyCurrentDetails extends Component {
   constructor() {
     super();
     this.state = { expanded: true };
-    // if (Platform.OS === "android") {
-    //   UIManager.setLayoutAnimationEnabledExperimental(true);
-    // }
+    if (Platform.OS === "android") {
+      UIManager.setLayoutAnimationEnabledExperimental &&
+        UIManager.setLayoutAnimationEnabledExperimental(true);
+    }
   }
 
   changeLayout = () => {

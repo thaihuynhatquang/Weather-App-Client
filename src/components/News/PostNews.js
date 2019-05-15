@@ -1,6 +1,13 @@
 import React, { Component } from "react";
 import { ImagePicker, Camera, Permissions } from "expo";
-import { API_URL, TEXT_COLOR, TEXT_LARGE_SIZE } from "../../utils/constant";
+import {
+  API_URL,
+  TEXT_COLOR,
+  TEXT_LARGE_SIZE,
+  BACKGROUND_COLOR,
+  ACTIVE_TINT_COLOR,
+  INACTIVE_TEXT_COLOR
+} from "../../utils/constant";
 import {
   View,
   Image,
@@ -12,6 +19,7 @@ import {
 } from "react-native";
 import { Button } from "react-native-elements";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scrollview";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import axios from "axios";
 export default class PostNews extends Component {
   state = {
@@ -56,15 +64,23 @@ export default class PostNews extends Component {
 
   _uploadNews = navigation => {
     const { title, content, image } = this.state;
+    if (title === "" || content === "") {
+      Alert.alert("Your Title and Content must be valided");
+      return;
+    }
+    if (!image) {
+      Alert.alert("Please choose an image");
+      return;
+    }
     const bodyFormData = new FormData();
     const uri = this.state.image;
     if (uri != null) {
-      const uriParts = uri.split('.');
+      const uriParts = uri.split(".");
       const fileType = uriParts[uriParts.length - 1];
-      bodyFormData.append('photo', {
+      bodyFormData.append("photo", {
         uri,
         name: `photo.${fileType}`,
-        type: `image/${fileType}`,
+        type: `image/${fileType}`
       });
     }
     bodyFormData.append("title", title);
@@ -72,8 +88,6 @@ export default class PostNews extends Component {
     bodyFormData.append("lat", 105);
     bodyFormData.append("lon", 21);
     bodyFormData.append("image", image);
-    console.log(bodyFormData, "day la data")
-    // let userData = await AsyncStorage.getItem("userData");
     axios({
       method: "post",
       url: `${API_URL}/news/newpost`,
@@ -93,13 +107,14 @@ export default class PostNews extends Component {
     const { image } = this.state;
     const { navigation } = this.props;
     return (
-      <KeyboardAwareScrollView>
+      <KeyboardAwareScrollView style={styles.container}>
         <View style={styles.containerText}>
           <Text style={styles.label}>Title: </Text>
           <TextInput
             style={styles.text}
             numberOfLines={2}
             placeholder={"Enter title"}
+            placeholderTextColor={INACTIVE_TEXT_COLOR}
             multiline={true}
             onChangeText={title => this.setState({ title })}
           />
@@ -110,6 +125,7 @@ export default class PostNews extends Component {
             style={styles.text}
             numberOfLines={4}
             placeholder={"Enter content"}
+            placeholderTextColor={INACTIVE_TEXT_COLOR}
             multiline={true}
             onChangeText={content => this.setState({ content })}
           />
@@ -118,8 +134,11 @@ export default class PostNews extends Component {
           <Button
             style={styles.buttonLibrary}
             title="From Library"
+            titleStyle={{
+              color: BACKGROUND_COLOR
+            }}
             buttonStyle={{
-              backgroundColor: TEXT_COLOR
+              backgroundColor: ACTIVE_TINT_COLOR
             }}
             onPress={() =>
               this._pickImageFromExplorer()
@@ -131,8 +150,11 @@ export default class PostNews extends Component {
           <Button
             style={styles.buttonPhoto}
             title="Take A Photo"
+            titleStyle={{
+              color: BACKGROUND_COLOR
+            }}
             buttonStyle={{
-              backgroundColor: TEXT_COLOR
+              backgroundColor: ACTIVE_TINT_COLOR
             }}
             onPress={() =>
               this._pickImageFromCamera()
@@ -145,20 +167,18 @@ export default class PostNews extends Component {
         {image ? (
           <Image style={styles.images} source={{ uri: image }} />
         ) : (
-            <Image
-              source={require("../../../assets/choose-image-white.png")}
-              style={styles.images}
-            />
-          )}
+          <Image
+            source={require("../../../assets/choose-image-white.png")}
+            style={styles.images}
+          />
+        )}
         <View style={styles.buttons}>
-          <Button
-            style={styles.uploadButton}
-            title="Upload"
+          <MaterialCommunityIcons
             onPress={() => this._uploadNews(navigation)}
-            buttonStyle={{
-              backgroundColor: TEXT_COLOR
-            }}
-            type="solid"
+            size={TEXT_LARGE_SIZE * 2.5}
+            name={"cloud-upload"}
+            color={ACTIVE_TINT_COLOR}
+            style={styles.addButton}
           />
         </View>
       </KeyboardAwareScrollView>
@@ -167,6 +187,9 @@ export default class PostNews extends Component {
 }
 
 styles = StyleSheet.create({
+  container: {
+    backgroundColor: BACKGROUND_COLOR
+  },
   containerText: {
     flex: 1,
     marginLeft: 15,
@@ -176,7 +199,7 @@ styles = StyleSheet.create({
     alignItems: "baseline"
   },
   label: {
-    color: TEXT_COLOR,
+    color: ACTIVE_TINT_COLOR,
     fontSize: TEXT_LARGE_SIZE,
     fontWeight: "600",
     marginLeft: 15,
@@ -185,7 +208,7 @@ styles = StyleSheet.create({
   },
   text: {
     fontSize: TEXT_LARGE_SIZE,
-    color: TEXT_COLOR,
+    color: ACTIVE_TINT_COLOR,
     marginLeft: 15,
     marginRight: 15,
     marginTop: 5,

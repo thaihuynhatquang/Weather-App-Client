@@ -18,6 +18,17 @@ const initialState = {
   error: null
 };
 
+function mergeNews(array) {
+  var a = array.concat();
+  for (var i = 0; i < a.length; ++i) {
+    for (var j = i + 1; j < a.length; ++j) {
+      if (a[i]._id === a[j]._id) a.splice(j--, 1);
+    }
+  }
+
+  return a;
+}
+
 export default (newsReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_NEWS_INFORMATION:
@@ -54,7 +65,7 @@ export default (newsReducer = (state = initialState, action) => {
         nextOffset: action.newsInformation.next_offset,
         prevOffset: action.newsInformation.prev_offset,
         total: action.newsInformation.total,
-        news: state.news.concat(action.newsInformation.newsArr)
+        news: mergeNews(state.news.concat(action.newsInformation.newsArr))
       };
     case UPDATE_NEWS_INFORMATION_FAILURE:
       return {

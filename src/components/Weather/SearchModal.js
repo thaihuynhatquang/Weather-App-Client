@@ -24,7 +24,10 @@ import {
   TEXT_COLOR,
   TEXT_SMALL_SIZE,
   TEXT_LARGE_SIZE,
-  TEXT_MEDIUM_SIZE
+  TEXT_MEDIUM_SIZE,
+  BACKGROUND_THIRD_COLOR,
+  BACKGROUND_SECOND_COLOR,
+  ACTIVE_TINT_COLOR
 } from "../../utils/constant";
 
 var screen = Dimensions.get("screen");
@@ -65,8 +68,6 @@ class SearchModal extends Component {
       lon: city.coord.lon
     };
     this.props.fetchWeatherInformation(coords);
-    this.props.fetchLocationInformation(coords);
-    this.props.fetchNewsInformation(coords);
   };
 
   onCloseSearchModal = () => {
@@ -86,7 +87,7 @@ class SearchModal extends Component {
         <View style={styles.innerContainer}>
           <SearchBar
             ref={search => (this.search = search)}
-            placeholder="Type Your City Here..."
+            placeholder="Enter City Here"
             onChangeText={this.updateSearch}
             showLoading={isLoading}
             autoCorrect={false}
@@ -103,7 +104,7 @@ class SearchModal extends Component {
               fontStyle: "italic"
             }}
             inputContainerStyle={{
-              backgroundColor: "#055929",
+              backgroundColor: ACTIVE_TINT_COLOR,
               borderRadius: 3
             }}
             inputStyle={{
@@ -117,7 +118,7 @@ class SearchModal extends Component {
                 onPress={() => this.onChooseCity(item)}
                 title={item.name + ", " + item.country + " "}
                 titleStyle={{
-                  color: "#2e8733"
+                  color: ACTIVE_TINT_COLOR
                 }}
                 icon={
                   <Image
@@ -139,7 +140,7 @@ class SearchModal extends Component {
               <Button
                 title="No data. Enter your city above"
                 titleStyle={{
-                  color: "#2e8733",
+                  color: ACTIVE_TINT_COLOR,
                   fontSize: TEXT_SMALL_SIZE,
                   fontStyle: "italic"
                 }}
@@ -153,11 +154,11 @@ class SearchModal extends Component {
               onPress={() => this.searchCity()}
               title="Search"
               buttonStyle={{
-                backgroundColor: "#055929",
+                backgroundColor: ACTIVE_TINT_COLOR,
                 marginRight: 15
               }}
               titleStyle={{
-                color: "white",
+                color: BACKGROUND_SECOND_COLOR,
                 fontSize: TEXT_MEDIUM_SIZE
               }}
             />
@@ -165,11 +166,11 @@ class SearchModal extends Component {
               onPress={() => this.onCloseSearchModal()}
               title="Close"
               buttonStyle={{
-                backgroundColor: "#055929",
+                backgroundColor: ACTIVE_TINT_COLOR,
                 marginLeft: 15
               }}
               titleStyle={{
-                color: "white",
+                color: BACKGROUND_SECOND_COLOR,
                 fontSize: TEXT_MEDIUM_SIZE
               }}
             />
@@ -202,20 +203,14 @@ const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 3
+    alignItems: "center"
   },
   innerContainer: {
-    backgroundColor: BACKGROUND_COLOR,
+    backgroundColor: BACKGROUND_SECOND_COLOR,
     width: screen.width * 0.9,
     height: screen.height * 0.5,
-    padding: 20
-  },
-  listCity: {
-    marginTop: 10,
-    marginBottom: 10,
-    fontSize: TEXT_LARGE_SIZE,
-    color: TEXT_COLOR
+    padding: 20,
+    borderRadius: 4
   },
   button: {
     flexDirection: "row",

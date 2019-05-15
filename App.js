@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import { isSignedIn } from "./src/utils/auth";
 import { Permissions } from "expo";
 import configureStore from "./src/store/configureStore";
-import { YellowBox } from "react-native";
+import { YellowBox, Alert } from "react-native";
 
 const store = configureStore();
 
@@ -31,7 +31,7 @@ export default class App extends React.Component {
           this.setState({ signedIn: res });
         }
       })
-      .catch(err => alert("An error occurred"));
+      .catch(err => Alert.alert("An error occurred"));
   }
 
   render() {

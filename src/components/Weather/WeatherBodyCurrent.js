@@ -3,23 +3,26 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import {
   TEXT_LARGE_SIZE,
   TEXT_MEDIUM_SIZE,
-  TEXT_SMALL_SIZE
+  TEXT_SMALL_SIZE,
+  BACKGROUND_SECOND_COLOR
 } from "../../utils/constant";
 import WeatherBodyCurrentDetails from "./WeatherBodyCurrentDetails";
 
 var _ = require("lodash");
 export default class WeatherBodyCurrent extends Component {
   render() {
-    const { information } = this.props;
+    const { futureInformation, currentInformation } = this.props;
     return (
       <View style={styles.cardCurrentInformation}>
         <View style={styles.currentInformation}>
           <View>
             <Text style={styles.currentDay}>Today</Text>
             <Text style={styles.temperature}>
-              {_.round(information[0].main.temp)}˚
+              {_.round(currentInformation.temp)}˚
             </Text>
-            <Text style={styles.description}>{information[0].description}</Text>
+            <Text style={styles.description}>
+              {_.startCase(currentInformation.description)}
+            </Text>
           </View>
           <Image
             style={{
@@ -28,12 +31,12 @@ export default class WeatherBodyCurrent extends Component {
             }}
             source={{
               uri: `http://openweathermap.org/img/w/${
-                information[0].weather[0].icon
+                currentInformation.icon
               }.png`
             }}
           />
         </View>
-        <WeatherBodyCurrentDetails information={information} />
+        <WeatherBodyCurrentDetails information={futureInformation} />
       </View>
     );
   }
@@ -42,7 +45,7 @@ export default class WeatherBodyCurrent extends Component {
 const styles = StyleSheet.create({
   cardCurrentInformation: {
     flex: 0,
-    backgroundColor: "#055929",
+    backgroundColor: BACKGROUND_SECOND_COLOR,
     shadowColor: "gray",
     shadowOffset: { width: 2, height: 2 },
     shadowOpacity: 0.8,

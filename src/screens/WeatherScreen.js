@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import Weather from "../components/Weather/Weather";
 import { connect } from "react-redux";
 import { loadWeatherInformation } from "../store/actions/weatherAction";
@@ -37,17 +37,14 @@ class WeatherScreen extends React.Component {
   }
 
   render() {
-    const { isWeatherLoading, weatherInformation } = this.props;
+    const { isWeatherLoading, weatherInformation, navigation } = this.props;
     return (
       <View style={styles.container}>
-        {isWeatherLoading ? (
-          <View style={styles.loadingContainer}>
-            <ActivityIndicator size="large" color={TEXT_COLOR} />
-
-            <Text style={styles.loadingText}>Getting Weather Data...</Text>
-          </View>
-        ) : (
-          <Weather forecastWeather={weatherInformation} />
+        {isWeatherLoading ? null : (
+          <Weather
+            forecastWeather={weatherInformation}
+            navigation={navigation}
+          />
         )}
       </View>
     );
@@ -76,16 +73,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: BACKGROUND_COLOR
-  },
-  loadingContainer: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: BACKGROUND_COLOR
-  },
-  loadingText: {
-    marginTop: 20,
-    fontSize: TEXT_LARGE_SIZE,
-    color: TEXT_COLOR
   }
 });

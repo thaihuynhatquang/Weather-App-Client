@@ -11,7 +11,8 @@ import {
   TEXT_COLOR,
   TEXT_MEDIUM_SIZE,
   TEXT_SMALL_SIZE,
-  TEXT_LARGE_SIZE
+  TEXT_LARGE_SIZE,
+  INACTIVE_TINT_COLOR
 } from "../../utils/constant";
 import WeatherBodyFutureDetails from "./WeatherBodyFutureDetails";
 var _ = require("lodash");
@@ -83,17 +84,17 @@ const styles = StyleSheet.create({
   },
   datetime: {
     fontSize: TEXT_SMALL_SIZE,
-    color: TEXT_COLOR,
+    color: INACTIVE_TINT_COLOR,
     marginBottom: 5
   },
   temperature: {
-    color: TEXT_COLOR,
+    color: INACTIVE_TINT_COLOR,
     fontSize: TEXT_LARGE_SIZE * 2
   },
   description: {
     fontSize: TEXT_MEDIUM_SIZE,
     fontWeight: "bold",
-    color: TEXT_COLOR,
+    color: INACTIVE_TINT_COLOR,
     marginBottom: 5
   }
 });

@@ -17,7 +17,7 @@ export const loadWeatherInformation = coords => {
   return (dispatch, getState) => {
     dispatch(loadWeatherInformationStarted());
     axios
-      .get(`${API_URL}/weather/postcast5day`, {
+      .get(`${API_URL}/weather`, {
         params: {
           lat: coords.lat,
           lon: coords.lon

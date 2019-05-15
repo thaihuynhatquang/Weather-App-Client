@@ -3,11 +3,16 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import { Button } from "react-native-elements";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 var _ = require("lodash");
-import { TEXT_COLOR, TEXT_TITLE, TEXT_MEDIUM_SIZE } from "../../utils/constant";
+import {
+  TEXT_COLOR,
+  TEXT_TITLE,
+  TEXT_MEDIUM_SIZE,
+  ACTIVE_TINT_COLOR
+} from "../../utils/constant";
 
 export default class WeatherHeader extends Component {
   render() {
-    const { city, country } = this.props;
+    const { city, country, navigation } = this.props;
     return (
       <View style={styles.headerContainer}>
         <View style={{ flex: 1, alignItems: "flex-start" }}>
@@ -30,12 +35,13 @@ export default class WeatherHeader extends Component {
         <View style={styles.iconTitle}>
           <View style={{ flexDirection: "row" }}>
             <Button
+              onPress={() => this.props.navigation.toggleDrawer()}
               type="clear"
               icon={
                 <MaterialCommunityIcons
                   size={30}
                   name={"account"}
-                  color={TEXT_COLOR}
+                  color={ACTIVE_TINT_COLOR}
                 />
               }
             />
@@ -58,12 +64,12 @@ const styles = StyleSheet.create({
   },
   textTitle: {
     fontSize: TEXT_TITLE,
-    color: TEXT_COLOR,
+    color: ACTIVE_TINT_COLOR,
     fontWeight: "bold"
   },
   textSubTitle: {
     fontSize: TEXT_MEDIUM_SIZE,
-    color: TEXT_COLOR
+    color: ACTIVE_TINT_COLOR
   },
   iconTitle: {
     flex: 1,

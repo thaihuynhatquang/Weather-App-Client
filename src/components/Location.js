@@ -6,7 +6,9 @@ import {
   TEXT_MEDIUM_SIZE,
   TEXT_COLOR,
   TEXT_LARGE_SIZE,
-  TEXT_SMALL_SIZE
+  TEXT_SMALL_SIZE,
+  BACKGROUND_SECOND_COLOR,
+  BACKGROUND_THIRD_COLOR
 } from "../utils/constant";
 class Location extends React.Component {
   constructor() {
@@ -44,6 +46,23 @@ class Location extends React.Component {
     const buttons = ["Cloud", "Wind", "Temperature", "Pressure"];
     return (
       <View style={{ flex: 1 }}>
+        <View
+          style={{
+            margin: 10
+          }}
+        >
+          <ButtonGroup
+            onPress={this.chooseRadarType}
+            selectedIndex={selectedRadarTypeIndex}
+            buttons={buttons}
+            containerStyle={{ height: 30 }}
+            selectedButtonStyle={{
+              backgroundColor: BACKGROUND_THIRD_COLOR
+            }}
+            selectedTextStyle={{ fontSize: TEXT_SMALL_SIZE, color: "white" }}
+            textStyle={{ fontSize: TEXT_SMALL_SIZE }}
+          />
+        </View>
         <MapView
           showsUserLocation={true}
           userLocationAnnotationTitle="Your Current Location"
@@ -72,20 +91,6 @@ class Location extends React.Component {
             flipY={false}
           />
         </MapView>
-        <ButtonGroup
-          style={{
-            flex: 1
-          }}
-          onPress={this.chooseRadarType}
-          selectedIndex={selectedRadarTypeIndex}
-          buttons={buttons}
-          containerStyle={{ height: 30 }}
-          selectedButtonStyle={{
-            backgroundColor: "#2e8733"
-          }}
-          selectedTextStyle={{ fontSize: TEXT_SMALL_SIZE, color: "white" }}
-          textStyle={{ fontSize: TEXT_SMALL_SIZE }}
-        />
       </View>
     );
   }

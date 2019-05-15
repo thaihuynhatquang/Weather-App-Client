@@ -13,14 +13,7 @@ class NewsScreen extends React.Component {
     const { isNewsLoading, navigation } = this.props;
     return (
       <View style={styles.container}>
-        {isNewsLoading ? (
-          <View style={styles.loadingContainer}>
-            <ActivityIndicator size="large" color={TEXT_COLOR} />
-            <Text style={styles.loadingText}>Getting News Data...</Text>
-          </View>
-        ) : (
-          <News navigation={navigation} />
-        )}
+        <News isNewsLoading={isNewsLoading} navigation={navigation} />
       </View>
     );
   }
@@ -35,17 +28,6 @@ export default connect(mapStateToProps)(NewsScreen);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff"
-  },
-  loadingContainer: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
     backgroundColor: BACKGROUND_COLOR
-  },
-  loadingText: {
-    marginTop: 20,
-    fontSize: TEXT_LARGE_SIZE,
-    color: TEXT_COLOR
   }
 });

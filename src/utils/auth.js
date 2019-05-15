@@ -1,4 +1,4 @@
-import { AsyncStorage, alert } from "react-native";
+import { AsyncStorage, Alert } from "react-native";
 import { platform, iosClientId, androidClientId, API_URL } from "./constant";
 import { Google } from "expo";
 import axios from "axios";

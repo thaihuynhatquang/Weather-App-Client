@@ -1,11 +1,11 @@
 import React from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
-import Calendar from "../components/Calendar/Calendar";
+import Profile from "../components/Profile";
 import { connect } from "react-redux";
 import { logoutUser } from "../store/actions/authAction";
 import { onSignOut } from "../utils/auth";
 
-class CalendarScreen extends React.Component {
+class ProfileScreen extends React.Component {
   _onLogout = () => {
     this.props.onLogout();
     onSignOut().then(() => this.props.navigation.navigate("SignedOut"));
@@ -13,7 +13,7 @@ class CalendarScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Calendar />
+        <Profile />
         <Button
           backgroundColor="#03A9F4"
           title="SIGN OUTTTT"
@@ -31,7 +31,7 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   null,
   mapDispatchToProps
-)(CalendarScreen);
+)(ProfileScreen);
 
 const styles = StyleSheet.create({
   container: {

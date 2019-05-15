@@ -12,14 +12,7 @@ class LocationScreen extends React.Component {
     const { isLocationLoading, coords } = this.props;
     return (
       <View style={styles.container}>
-        {isLocationLoading ? (
-          <View style={styles.loadingContainer}>
-            <ActivityIndicator size="large" color={TEXT_COLOR} />
-            <Text style={styles.loadingText}>Getting Location Data...</Text>
-          </View>
-        ) : (
-          <Location coords={coords} />
-        )}
+        {isLocationLoading ? null : <Location coords={coords} />}
       </View>
     );
   }
@@ -28,18 +21,7 @@ class LocationScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff"
-  },
-  loadingContainer: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
     backgroundColor: BACKGROUND_COLOR
-  },
-  loadingText: {
-    marginTop: 20,
-    fontSize: TEXT_LARGE_SIZE,
-    color: TEXT_COLOR
   }
 });
 

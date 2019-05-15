@@ -5,20 +5,22 @@ import {
   TEXT_LARGE_SIZE,
   TEXT_COLOR,
   TEXT_MEDIUM_SIZE,
-  TEXT_SMALL_SIZE
+  TEXT_SMALL_SIZE,
+  BACKGROUND_COLOR,
+  ACTIVE_TINT_COLOR
 } from "../../utils/constant";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 class NewsDetail extends React.Component {
   render() {
     const { news } = this.props;
     return (
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, backgroundColor: BACKGROUND_COLOR }}>
         <Text style={styles.title}>{news.title}</Text>
         <View style={styles.authorAndTime}>
           <MaterialCommunityIcons
             size={TEXT_MEDIUM_SIZE}
             name={"account"}
-            color={TEXT_COLOR}
+            color={ACTIVE_TINT_COLOR}
           />
           <Text style={styles.author}>{news.authorName}</Text>
           <Text style={styles.time}>{news.datetime}</Text>
@@ -43,7 +45,7 @@ export default NewsDetail;
 
 const styles = StyleSheet.create({
   title: {
-    color: TEXT_COLOR,
+    color: ACTIVE_TINT_COLOR,
     marginLeft: 15,
     marginRight: 15,
     marginTop: 15,
@@ -60,19 +62,19 @@ const styles = StyleSheet.create({
   },
   author: {
     fontSize: TEXT_MEDIUM_SIZE,
-    color: TEXT_COLOR,
+    color: ACTIVE_TINT_COLOR,
     fontWeight: "600",
     marginLeft: 5
   },
   time: {
     fontSize: TEXT_SMALL_SIZE,
-    color: TEXT_COLOR,
+    color: ACTIVE_TINT_COLOR,
     marginLeft: 5,
     fontStyle: "italic"
   },
   content: {
     fontSize: TEXT_MEDIUM_SIZE,
-    color: TEXT_COLOR,
+    color: ACTIVE_TINT_COLOR,
     marginLeft: 15,
     marginRight: 15
   }
