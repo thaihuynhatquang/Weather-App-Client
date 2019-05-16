@@ -1,10 +1,10 @@
 {
   "expoServerNgrokUrl": "https://85-m2i.thaihuynhatquang.weather-app.exp.direct",
   "packagerNgrokUrl": "https://packager.85-m2i.thaihuynhatquang.weather-app.exp.direct",
-  "ngrokPid": 15992,
+  "ngrokPid": 9408,
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 6708,
+  "packagerPid": 15728,
   "webpackServerPort": null
 }
