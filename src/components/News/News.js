@@ -6,7 +6,8 @@ import {
   FlatList,
   ScrollView,
   RefreshControl,
-  ActivityIndicator
+  ActivityIndicator,
+  AsyncStorage
 } from "react-native";
 import Item from "./Item";
 import {
