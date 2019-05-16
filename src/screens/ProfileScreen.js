@@ -13,12 +13,7 @@ class ProfileScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Profile />
-        <Button
-          backgroundColor="#03A9F4"
-          title="SIGN OUTTTT"
-          onPress={() => this._onLogout()}
-        />
+        <Profile logout={this._onLogout} />
       </View>
     );
   }
