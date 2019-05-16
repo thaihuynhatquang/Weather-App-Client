@@ -1,5 +1,5 @@
 import React from "react";
-import { Platform, StatusBar } from "react-native";
+import { Platform, StatusBar, Dimensions } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {
   createBottomTabNavigator,
@@ -9,6 +9,7 @@ import {
   createDrawerNavigator
 } from "react-navigation";
 import ProfileScreen from "../screens/ProfileScreen";
+import FavoriteScreen from "../screens/FavoriteScreen";
 import WeatherScreen from "../screens/WeatherScreen";
 import LocationScreen from "../screens/LocationScreen";
 import NewsScreen from "../screens/NewsScreen";
@@ -147,14 +148,33 @@ export const SignedInDrawer = createDrawerNavigator(
     }
   },
   {
-    drawerPosition: "right",
-    contentComponent: ProfileScreen,
-    drawerType: "front"
+    drawerPosition: "left",
+    contentComponent: FavoriteScreen,
+    drawerType: "front",
+    drawerWidth: (Dimensions.get("window").width * 2) / 3,
+    edgeWidth: (Dimensions.get("window").width * 1) / 4,
+    drawerOpenRoute: "LeftSideMenu",
+    drawerCloseRoute: "LeftSideMenuClose",
+    drawerToggleRoute: "LeftSideMenuToggle"
+  }
+);
+
+export const SignedInDrawer2 = createDrawerNavigator(
+  {
+    SignedIn: {
+      screen: SignedInDrawer
+    }
   },
   {
-    drawerPosition: "left",
+    drawerPosition: "right",
     contentComponent: ProfileScreen,
-    drawerType: "front"
+    drawerWidth: (Dimensions.get("window").width * 2) / 3,
+    edgeWidth: (Dimensions.get("window").width * 1) / 4,
+    drawerOpenRoute: "RightSideMenu",
+    drawerCloseRoute: "RightSideMenuClose",
+    drawerToggleRoute: "RightSideMenuToggle",
+    drawerType: "front",
+    drawerLockMode: "locked-closed"
   }
 );
 
@@ -163,7 +183,7 @@ export const createRootNavigator = (signedIn = false) => {
     createSwitchNavigator(
       {
         SignedIn: {
-          screen: SignedInDrawer
+          screen: SignedInDrawer2
         },
         SignedOut: {
           screen: SignedOut

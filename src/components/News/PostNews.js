@@ -224,15 +224,15 @@ styles = StyleSheet.create({
   },
   buttons: {
     flexDirection: "row",
-    justifyContent: "center"
+    justifyContent: "space-around"
   },
   buttonLibrary: {
     marginHorizontal: 15,
-    marginVertical: 10
+    marginRight: 10
   },
   buttonPhoto: {
     marginHorizontal: 15,
-    marginVertical: 10
+    marginLeft: 10
   },
   uploadButton: {
     marginHorizontal: 15,

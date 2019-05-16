@@ -61,7 +61,7 @@ export default class Item extends Component {
               >
                 <Text style={styles.datetime}>{this.props.item.datetime}</Text>
                 <Text style={styles.distance}>
-                  ~{this.props.item.distance}km
+                  ~{this.props.item.distance}m
                 </Text>
               </View>
             </View>

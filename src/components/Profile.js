@@ -49,7 +49,6 @@ class Profile extends React.Component {
 
   render() {
     const { avatar, name, userID } = this.state;
-    console.log(avatar, "avatar");
     return (
       <View style={styles.container}>
         <View style={styles.content}>

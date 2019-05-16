@@ -26,12 +26,12 @@ export const loadNewsInformation = coords => {
         let newsArr = res.data.news_Arr.map((item, index) => {
           var time = new Date(item.time_create);
           item.datetime = time.toLocaleDateString();
-          var distance = item.distance / 1000;
+          var distance = item.distance;
           item.distance = _.round(distance, 2);
           return item;
         });
         let data = res.data;
-        data.newsArr = newsArr;
+        data.newsArr = _.reverse(newsArr);
         dispatch(loadNewsInformationSuccess(data));
       })
       .catch(err => {
