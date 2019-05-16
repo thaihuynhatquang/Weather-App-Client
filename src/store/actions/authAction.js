@@ -6,7 +6,7 @@ import {
   ADD_FAVORITE_PLACE_FAIL,
   REMOVE_USER,
   REMOVE_LOCATION_INFORMATION,
-  REMOVE_WEATHER_INFORMATION,
+  GET_WEATHER_INFORMATION,
   REMOVE_NEWS_INFORMATION
 } from "./types";
 import axios from "axios";
@@ -47,9 +47,6 @@ export const addFavoritePlace = data => {
 export const logoutUser = () => {
   return dispatch => {
     dispatch({ type: REMOVE_USER });
-    dispatch({ type: REMOVE_LOCATION_INFORMATION });
-    dispatch({ type: REMOVE_WEATHER_INFORMATION });
-    dispatch({ type: REMOVE_NEWS_INFORMATION });
   };
 };
 const addFavoritePlacesuccess = favoritePlaces => ({

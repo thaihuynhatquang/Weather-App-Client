@@ -24,6 +24,10 @@ class AuthScreen extends React.Component {
     }
   };
 
+  _continueWithoutLogin = () => {
+    this.props.navigation.navigate("SignedIn");
+  };
+
   shouldComponentUpdate(nextProps) {
     if (nextProps.userInfo !== this.props.userInfo) {
       onSignIn(nextProps.userInfo).then(() =>
@@ -63,20 +67,11 @@ class AuthScreen extends React.Component {
             type="clear"
           />
         </View>
-        <View style={styles.facebookButtonLogin}>
+        <View style={styles.manualButtonLogin}>
           <Button
             buttonStyle={{ paddingHorizontal: 16, paddingVertical: 15 }}
-            onPress={() => this._loginGoogle()}
-            icon={
-              <Image
-                style={{
-                  height: 30,
-                  width: 30
-                }}
-                source={{ uri: `${API_URL}/img/facebook.png` }}
-              />
-            }
-            title="Continue with Facebook"
+            onPress={() => this._continueWithoutLogin()}
+            title="Continue without Login"
             titleStyle={{
               fontSize: 20,
               color: "white"
@@ -128,7 +123,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.8,
     shadowRadius: 5
   },
-  facebookButtonLogin: {
+  manualButtonLogin: {
     marginTop: 20,
     backgroundColor: "#4267b2",
     borderRadius: 15,

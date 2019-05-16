@@ -10,10 +10,13 @@ class ProfileScreen extends React.Component {
     this.props.onLogout();
     onSignOut().then(() => this.props.navigation.navigate("SignedOut"));
   };
+  _onLogin = () => {
+    this.props.navigation.navigate("SignedOut");
+  };
   render() {
     return (
       <View style={styles.container}>
-        <Profile logout={this._onLogout} />
+        <Profile logout={this._onLogout} login={this._onLogin} />
       </View>
     );
   }

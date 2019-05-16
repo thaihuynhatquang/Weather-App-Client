@@ -68,17 +68,29 @@ class Profile extends React.Component {
             />
           )}
         </View>
-        <View style={styles.information}>
-          <Text style={styles.textInformation}>{name}</Text>
-        </View>
+        {avatar ? (
+          <View style={styles.information}>
+            <Text style={styles.textInformation}>{name}</Text>
+          </View>
+        ) : null}
         <View>
-          <TouchableOpacity
-            onPress={() => this.props.logout()}
-            activeOpacity={0.8}
-            style={styles.information}
-          >
-            <Text style={styles.textInformation}>Logout</Text>
-          </TouchableOpacity>
+          {avatar ? (
+            <TouchableOpacity
+              onPress={() => this.props.logout()}
+              activeOpacity={0.8}
+              style={styles.information}
+            >
+              <Text style={styles.textInformation}>Logout</Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              onPress={() => this.props.login()}
+              activeOpacity={0.8}
+              style={styles.information}
+            >
+              <Text style={styles.textInformation}>Login</Text>
+            </TouchableOpacity>
+          )}
         </View>
       </View>
     );
