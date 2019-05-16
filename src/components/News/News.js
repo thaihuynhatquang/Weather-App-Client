@@ -36,9 +36,31 @@ class News extends React.Component {
     this.state = {
       refreshing: false,
       updating: false,
-      order: "location"
+      order: "location",
+      isLogin: null
     };
   }
+
+  componentDidMount = async () => {
+    const data = await this.getDataFromAsyncStorage();
+    if (this.props.userInfo && this.props.userInfo.token !== "") {
+      this.setState({ isLogin: true });
+    } else if (data) {
+      this.setState({ isLogin: true });
+    } else {
+      this.setState({ isLogin: false });
+    }
+  };
+
+  getDataFromAsyncStorage = async () => {
+    try {
+      let userData = await AsyncStorage.getItem("userData");
+      let data = JSON.parse(userData);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   postNews = navigation => {
     navigation.navigate("PostNewsScreen");
@@ -78,13 +100,15 @@ class News extends React.Component {
       <View
         style={{ flex: 1, paddingTop: 20, backgroundColor: BACKGROUND_COLOR }}
       >
-        <MaterialCommunityIcons
-          onPress={() => this.postNews(navigation)}
-          size={TEXT_LARGE_SIZE * 2.5}
-          name={"cloud-upload"}
-          color={ACTIVE_TINT_COLOR}
-          style={styles.addButton}
-        />
+        {this.state.isLogin ? (
+          <MaterialCommunityIcons
+            onPress={() => this.postNews(navigation)}
+            size={TEXT_LARGE_SIZE * 2.5}
+            name={"cloud-upload"}
+            color={ACTIVE_TINT_COLOR}
+            style={styles.addButton}
+          />
+        ) : null}
 
         {isNewsLoading ? null : (
           <ScrollView
@@ -125,7 +149,8 @@ const mapStateToProps = state => ({
   isUpdating: state.newsReducer.isUpdating,
   offset: state.newsReducer.nextOffset,
   news: state.newsReducer.news,
-  total: state.newsReducer.total
+  total: state.newsReducer.total,
+  userInfo: state.authReducer.userInfo
 });
 
 const mapDispatchToProps = dispatch => ({

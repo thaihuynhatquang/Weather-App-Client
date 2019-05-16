@@ -18,7 +18,8 @@ class WeatherHeader extends Component {
     super(props);
 
     this.state = {
-      liked: false
+      liked: false,
+      isLogin: null
     };
   }
 
@@ -27,7 +28,6 @@ class WeatherHeader extends Component {
     const { information } = this.props;
     if (this.props.favoritePlaces) {
       let favoritePlaces = this.props.favoritePlaces.slice(0);
-
       let place = {
         city: information.name,
         country: information.country,
@@ -58,6 +58,13 @@ class WeatherHeader extends Component {
       } else {
         this.setState({ liked: true });
       }
+    }
+    if (this.props.userInfo && this.props.userInfo.token !== "") {
+      this.setState({ isLogin: true });
+    } else if (data) {
+      this.setState({ isLogin: true });
+    } else {
+      this.setState({ isLogin: false });
     }
   };
 
@@ -145,12 +152,14 @@ class WeatherHeader extends Component {
               }
             </Text>
           </View>
-          <MaterialCommunityIcons
-            onPress={() => this._onAddPlace()}
-            size={TEXT_LARGE_SIZE * 1.5}
-            name={!this.state.liked ? "star-outline" : "star"}
-            color={ACTIVE_TINT_COLOR}
-          />
+          {this.state.isLogin ? (
+            <MaterialCommunityIcons
+              onPress={() => this._onAddPlace()}
+              size={TEXT_LARGE_SIZE * 1.5}
+              name={!this.state.liked ? "star-outline" : "star"}
+              color={ACTIVE_TINT_COLOR}
+            />
+          ) : null}
         </View>
         <View style={styles.iconTitle}>
           <View style={{ flexDirection: "row" }}>
@@ -200,7 +209,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
   information: state.weatherReducer.weatherInformation.city,
-  favoritePlaces: state.authReducer.favoritePlaces
+  favoritePlaces: state.authReducer.favoritePlaces,
+  userInfo: state.authReducer.userInfo
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -31,6 +31,7 @@ class Favorite extends React.Component {
       favoritePlaces: []
     };
   }
+
   getDataFromAsyncStorage = async () => {
     try {
       let userData = await AsyncStorage.getItem("userData");
@@ -40,6 +41,7 @@ class Favorite extends React.Component {
       console.log(error);
     }
   };
+
   _onRefresh = () => {
     this.setState({ refreshing: true });
     const { favoritePlaces } = this.props;
@@ -48,14 +50,19 @@ class Favorite extends React.Component {
     }
     this.setState({ refreshing: false });
   };
+
   componentDidMount = async () => {
     let data = await this.getDataFromAsyncStorage();
     const { favoritePlaces } = this.props;
     if (favoritePlaces) {
       this.setState({ favoritePlaces: favoritePlaces });
-      (data.favorite = favoritePlaces), onSignIn(data);
-    } else {
+      if (data) {
+        data.favorite = onSignIn(data);
+      }
+    } else if (data) {
       this.setState({ favoritePlaces: data.favorite });
+    } else {
+      this.setState({ favoritePlaces: [] });
     }
   };
 
@@ -82,27 +89,28 @@ class Favorite extends React.Component {
         </View>
         {favoritePlaces.length === 0 ? (
           <Text style={styles.contentNoData}>No data</Text>
-        ) : null}
-        {favoritePlaces.map((item, index) => (
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={() => this.onChooseCity(item)}
-            key={index}
-            style={styles.contentContainer}
-          >
-            <Text style={styles.content}>{item.city}, </Text>
-            <Text style={styles.content}>{item.country} </Text>
-            <Image
-              style={{
-                height: 11,
-                width: 16
-              }}
-              source={{
-                uri: `http://openweathermap.org/images/flags/${item.country.toLowerCase()}.png`
-              }}
-            />
-          </TouchableOpacity>
-        ))}
+        ) : (
+          favoritePlaces.map((item, index) => (
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => this.onChooseCity(item)}
+              key={index}
+              style={styles.contentContainer}
+            >
+              <Text style={styles.content}>{item.city}, </Text>
+              <Text style={styles.content}>{item.country} </Text>
+              <Image
+                style={{
+                  height: 11,
+                  width: 16
+                }}
+                source={{
+                  uri: `http://openweathermap.org/images/flags/${item.country.toLowerCase()}.png`
+                }}
+              />
+            </TouchableOpacity>
+          ))
+        )}
       </ScrollView>
     );
   }
