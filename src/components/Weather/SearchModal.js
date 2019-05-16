@@ -108,7 +108,7 @@ class SearchModal extends Component {
               borderRadius: 3
             }}
             inputStyle={{
-              color: "white"
+              color: BACKGROUND_SECOND_COLOR
             }}
           />
           <FlatList

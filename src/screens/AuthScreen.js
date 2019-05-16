@@ -39,7 +39,7 @@ class AuthScreen extends React.Component {
       <View style={styles.container}>
         <Image
           style={styles.logo}
-          source={{ uri: `${API_URL}/img/logo.png` }}
+          source={require("../../assets/logo.png")}
           resizeMode="center"
         />
         <View style={styles.googleButtonLogin}>

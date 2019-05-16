@@ -2,6 +2,8 @@ import {
   GET_USER,
   GET_USER_SUCCESS,
   GET_USER_FAIL,
+  ADD_FAVORITE_PLACE,
+  ADD_FAVORITE_PLACE_FAIL,
   REMOVE_USER,
   REMOVE_LOCATION_INFORMATION,
   REMOVE_WEATHER_INFORMATION,
@@ -28,6 +30,20 @@ export const loginUser = userInfo => {
   };
 };
 
+export const addFavoritePlace = data => {
+  return (dispatch, getState) => {
+    axios
+      .patch(`${API_URL}/user/favorite`, data)
+      .then(res => {
+        dispatch(addFavoritePlacesuccess(data));
+      })
+      .catch(err => {
+        Alert.alert("Timeout of 0ms Exceeded. Server Error");
+        dispatch(addFavoritePlaceFailure(err.message));
+      });
+  };
+};
+
 export const logoutUser = () => {
   return dispatch => {
     dispatch({ type: REMOVE_USER });
@@ -36,6 +52,15 @@ export const logoutUser = () => {
     dispatch({ type: REMOVE_NEWS_INFORMATION });
   };
 };
+const addFavoritePlacesuccess = favoritePlaces => ({
+  type: ADD_FAVORITE_PLACE,
+  favoritePlaces
+});
+
+const addFavoritePlaceFailure = error => ({
+  type: ADD_FAVORITE_PLACE_FAIL,
+  error
+});
 
 const loginUserStarted = () => ({
   type: GET_USER
