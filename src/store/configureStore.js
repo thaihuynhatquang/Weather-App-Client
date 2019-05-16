@@ -4,6 +4,6 @@ import thunk from "redux-thunk"; //import thunk
 import { logger } from "redux-logger";
 
 export default (configureStore = () => {
-  let store = createStore(rootReducer, applyMiddleware(thunk, logger)); // create store sử dụng thunk
+  let store = createStore(rootReducer, applyMiddleware(thunk)); // create store sử dụng thunk
   return store;
 });
